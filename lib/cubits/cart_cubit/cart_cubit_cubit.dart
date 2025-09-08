@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit_state.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
-
 class CartCubitCubit extends Cubit<CartCubitState> {
   CartCubitCubit() : super(CartCubitInitial());
 
@@ -10,6 +9,9 @@ class CartCubitCubit extends Cubit<CartCubitState> {
   final List<ProductModel> _cartItems = [];
 
   List<ProductModel> get cartItems => _cartItems;
+
+  // Favorites list
+  final List<ProductModel> _favorites = [];
 
   // Add product to cart
   void addToCart(ProductModel product) {
@@ -29,4 +31,10 @@ class CartCubitCubit extends Cubit<CartCubitState> {
     emit(CartUpdatedSuccessfully(List.unmodifiable(_cartItems)));
   }
 
+  // Add to favorites
+  void addToFavorites(ProductModel product) {
+    // Add product to favorites logic
+    _favorites.add(product);
+    emit(FavoritesUpdatedSuccessfully(List.unmodifiable(_favorites)));
+  }
 }
