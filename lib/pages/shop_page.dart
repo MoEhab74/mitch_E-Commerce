@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/components/my_list_tile.dart';
-import 'package:minimal_e_commerce/components/shop_products_builder.dart';
+import 'package:minimal_e_commerce/components/products_builder.dart';
+import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
 import 'package:minimal_e_commerce/pages/cart_page.dart';
+import 'package:minimal_e_commerce/pages/favourites_page.dart';
 import 'package:minimal_e_commerce/pages/home_page.dart';
 
 class ShopPage extends StatelessWidget {
@@ -12,8 +14,11 @@ class ShopPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ShopCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ShopCubit()),
+        BlocProvider(create: (context) => CartCubit()),
+      ],
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
         drawer: Drawer(
@@ -56,6 +61,16 @@ class ShopPage extends StatelessWidget {
                   Navigator.of(context).pushNamed(CartPage.routeName);
                 },
               ),
+              MyListTile(
+                icon: Icons.favorite,
+                title: 'Favourites',
+                onTap: () {
+                  // Close the drawer
+                  Navigator.of(context).pop();
+                  // Then navigate to the cart page
+                  Navigator.of(context).pushNamed(FavouritesPage.routeName);
+                },
+              ),
             ],
           ),
         ),
@@ -65,7 +80,7 @@ class ShopPage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           foregroundColor: Theme.of(context).colorScheme.secondary,
         ),
-        body: ShopProductsBuilder(),
+        body: ProductsBuilder(),
       ),
     );
   }

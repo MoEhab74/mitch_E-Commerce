@@ -4,14 +4,14 @@ import 'package:minimal_e_commerce/components/product_item.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
-class ShopProductsBuilder extends StatefulWidget {
-  const ShopProductsBuilder({super.key});
+class ProductsBuilder extends StatefulWidget {
+  const ProductsBuilder({super.key});
 
   @override
-  State<ShopProductsBuilder> createState() => _ShopProductsBuilderState();
+  State<ProductsBuilder> createState() => _ProductsBuilderState();
 }
 
-class _ShopProductsBuilderState extends State<ShopProductsBuilder> {
+class _ProductsBuilderState extends State<ProductsBuilder> {
   List<ProductModel> products = [];
   @override
   void initState() {

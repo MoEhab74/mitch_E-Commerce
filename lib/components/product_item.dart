@@ -1,11 +1,18 @@
 // product_item.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit_cubit.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductItem extends StatefulWidget {
   const ProductItem({super.key, required this.product});
   final ProductModel product;
 
+  @override
+  State<ProductItem> createState() => _ProductItemState();
+}
+
+class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,7 +40,7 @@ class ProductItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      product.title,
+                      widget.product.title,
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -42,21 +49,27 @@ class ProductItem extends StatelessWidget {
                     IconButton(
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
-                      icon: const Icon(Icons.favorite_border),
-                      onPressed: () {},
+                      icon: Icon(
+                        Icons.favorite,
+                        color: widget.product.isFavorite ? Colors.red : Colors.white,
+                      ),
+                      onPressed: () {
+                        // Add to favorites logic ===> trigger the method from the cubit
+                        BlocProvider.of<CartCubit>(context).addToFavorites(widget.product);
+                        setState(() {
+                          widget.product.isFavorite = !widget.product.isFavorite;
+                        });
+                      },
                     ),
                   ],
                 ),
-
-                const SizedBox(height: 4),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '\$ ${product.price}',
+                      '\$ ${widget.product.price}',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

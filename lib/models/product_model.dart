@@ -3,6 +3,7 @@ class ProductModel {
   final String title;
   final String description;
   final double price;
+  bool isFavorite = false;
   // final String imageUrl;
 
   ProductModel({

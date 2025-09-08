@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class FavouritesPage extends StatelessWidget {
   const FavouritesPage({super.key});
+  static const routeName = 'FavouritesPage';
 
   @override
   Widget build(BuildContext context) {
