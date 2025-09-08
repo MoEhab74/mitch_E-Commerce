@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:minimal_e_commerce/components/ny_buttom.dart';
+import 'package:minimal_e_commerce/pages/shop_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  static const routeName = 'HomePage';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.only(left: 16, right: 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            Icon(
-              Icons.shopping_bag,
-              size: 200,
-              color: Theme.of(context).colorScheme.primary,
+            Center(
+              child: Icon(
+                Icons.shopping_bag,
+                size: 200,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
             const SizedBox(height: 25),
             Text(
@@ -37,9 +44,15 @@ class HomePage extends StatelessWidget {
                 color: Theme.of(context).colorScheme.secondary,
               ),
             ),
+            const SizedBox(height: 32),
+            MyButtom(
+              onTap: () => Navigator.pushNamed(context, ShopPage.routeName),
+            )
           ],
         ),
       ),
     );
   }
 }
+
+

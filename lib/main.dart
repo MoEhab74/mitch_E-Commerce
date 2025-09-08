@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minimal_e_commerce/pages/home_page.dart';
+import 'package:minimal_e_commerce/pages/shop_page.dart';
 import 'package:minimal_e_commerce/theme/light_theme.dart';
 
 void main() {
@@ -13,6 +14,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        HomePage.routeName: (context) => HomePage(),
+        ShopPage.routeName: (context) => ShopPage(),
+      },
       theme: lightMode,
       debugShowCheckedModeBanner: false,
       title: 'E-Commerce',
