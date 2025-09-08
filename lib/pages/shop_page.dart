@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minimal_e_commerce/components/my_list_tile.dart';
 import 'package:minimal_e_commerce/components/shop_products_builder.dart';
+import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/home_page.dart';
 
 class ShopPage extends StatelessWidget {
@@ -34,11 +35,21 @@ class ShopPage extends StatelessWidget {
               },
             ),
             MyListTile(
-              icon: Icons.shopping_cart_rounded,
+              icon: Icons.shopify_sharp,
               title: 'Shop',
               onTap: () {
                 // Close the drawer
                 Navigator.of(context).pop();
+              },
+            ),
+            MyListTile(
+              icon: Icons.add_shopping_cart,
+              title: 'Cart',
+              onTap: () {
+                // Close the drawer
+                Navigator.of(context).pop();
+                // Then navigate to the cart page
+                Navigator.of(context).pushNamed(CartPage.routeName);
               },
             ),
           ],
@@ -54,4 +65,3 @@ class ShopPage extends StatelessWidget {
     );
   }
 }
-

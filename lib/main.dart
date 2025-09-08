@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/home_page.dart';
 import 'package:minimal_e_commerce/pages/shop_page.dart';
 import 'package:minimal_e_commerce/theme/light_theme.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomePage.routeName: (context) => HomePage(),
         ShopPage.routeName: (context) => ShopPage(),
+        CartPage.routeName: (context) => CartPage(),
       },
       theme: lightMode,
       debugShowCheckedModeBanner: false,
