@@ -44,7 +44,7 @@ class ShopPage extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-        title: const Text('Shop'),
+        title: const Text('Shop Page'),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).colorScheme.secondary,
