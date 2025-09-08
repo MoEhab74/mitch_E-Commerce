@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minimal_e_commerce/components/my_list_tile.dart';
 import 'package:minimal_e_commerce/pages/home_page.dart';
 
 class ShopPage extends StatelessWidget {
@@ -21,26 +22,23 @@ class ShopPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
-            Padding(
-              padding: const EdgeInsets.only(left: 16),
-              child: ListTile(
-                leading: Icon(
-                  Icons.home,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                title: Text(
-                  'Home',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                ),
-                onTap: () {
-                  // First close the drawer
-                  Navigator.pop(context);
-                  // Then push the home page
-                  Navigator.pushNamed(context, HomePage.routeName);
-                }
-              ),
+            MyListTile(
+              icon: Icons.home,
+              title: 'Home',
+              onTap: (){
+                // Close the drawer first
+                Navigator.of(context).pop();
+                // Then navigate to the home page
+                Navigator.of(context).pushNamed(HomePage.routeName);
+              }
+            ),
+            MyListTile(
+              icon: Icons.shopping_cart_rounded,
+              title: 'Shop',
+              onTap: () {
+                // Close the drawer
+                Navigator.of(context).pop();
+              }
             )
           ],
         ),
@@ -54,3 +52,5 @@ class ShopPage extends StatelessWidget {
     );
   }
 }
+
+
