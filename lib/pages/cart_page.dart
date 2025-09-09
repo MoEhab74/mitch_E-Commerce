@@ -58,7 +58,6 @@ class CartPage extends StatelessWidget {
                 ),
               );
             }
-
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: ProductsBuilder(
@@ -69,7 +68,6 @@ class CartPage extends StatelessWidget {
               ),
             );
           }
-
           if (state is CartCubitInitial) {
             return const Center(
               child: Text(
@@ -78,7 +76,6 @@ class CartPage extends StatelessWidget {
               ),
             );
           }
-
           return const Center(child: CircularProgressIndicator());
         },
       ),
