@@ -14,11 +14,8 @@ class ShopPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => ShopCubit()),
-        BlocProvider(create: (context) => CartCubit()),
-      ],
+    return BlocProvider(
+      create: (context) => ShopCubit(),
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
         drawer: Drawer(

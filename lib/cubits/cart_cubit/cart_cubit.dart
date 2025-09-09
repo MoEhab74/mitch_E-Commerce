@@ -28,6 +28,8 @@ class CartCubit extends Cubit<CartCubitState> {
   // Remove product from cart
   void removeFromCart(ProductModel product) {
     _cartItems.remove(product);
+    log('${product.title} removed from cart');
+    print(_cartItems.length);
     emit(CartUpdatedSuccessfully(List.unmodifiable(_cartItems)));
   }
 

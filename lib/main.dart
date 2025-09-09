@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
 import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
 import 'package:minimal_e_commerce/pages/home_page.dart';
@@ -15,18 +17,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        HomePage.routeName: (context) => HomePage(),
-        ShopPage.routeName: (context) => ShopPage(),
-        CartPage.routeName: (context) => CartPage(),
-        FavouritesPage.routeName: (context) => FavouritesPage(),
-      },
-      theme: lightMode,
-      debugShowCheckedModeBanner: false,
-      title: 'E-Commerce',
-      home: HomePage(),
+    return BlocProvider(
+      create: (context) => CartCubit(),
+      child: MaterialApp(
+        routes: {
+          HomePage.routeName: (context) => HomePage(),
+          ShopPage.routeName: (context) => ShopPage(),
+          CartPage.routeName: (context) => CartPage(),
+          FavouritesPage.routeName: (context) => FavouritesPage(),
+        },
+        theme: lightMode,
+        debugShowCheckedModeBanner: false,
+        title: 'E-Commerce',
+        home: HomePage(),
+      ),
     );
   }
 }
-
