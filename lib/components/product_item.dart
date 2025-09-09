@@ -1,7 +1,8 @@
 // product_item.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit_cubit.dart';
+import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
+import 'package:minimal_e_commerce/cubits/cart_cubit/cart_state.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
 class ProductItem extends StatefulWidget {
@@ -46,19 +47,24 @@ class _ProductItemState extends State<ProductItem> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    IconButton(
-                      padding: EdgeInsets.zero,
-                      constraints: const BoxConstraints(),
-                      icon: Icon(
-                        Icons.favorite,
-                        color: widget.product.isFavorite ? Colors.red : Colors.white,
-                      ),
-                      onPressed: () {
-                        // Add to favorites logic ===> trigger the method from the cubit
-                        BlocProvider.of<CartCubit>(context).addToFavorites(widget.product);
-                        setState(() {
-                          widget.product.isFavorite = !widget.product.isFavorite;
-                        });
+                    BlocBuilder<CartCubit, CartCubitState>(
+                      builder: (context, state) {
+                        return IconButton(
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                          icon: Icon(
+                            Icons.favorite,
+                            color: widget.product.isFavorite
+                                ? Colors.red
+                                : Colors.white,
+                          ),
+                          onPressed: () {
+                            // Add to favorites logic ===> trigger the method from the cubit
+                            context.read<CartCubit>().toggleFavorite(
+                              widget.product,
+                            );
+                          },
+                        );
                       },
                     ),
                   ],
