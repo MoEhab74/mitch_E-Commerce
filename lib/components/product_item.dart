@@ -6,8 +6,10 @@ import 'package:minimal_e_commerce/cubits/cart_cubit/cart_state.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
 class ProductItem extends StatefulWidget {
-  const ProductItem({super.key, required this.product});
+  const ProductItem({super.key, required this.product, required this.icon, this.onTap});
   final ProductModel product;
+  final IconData icon;
+  final VoidCallback? onTap;
 
   @override
   State<ProductItem> createState() => _ProductItemState();
@@ -82,8 +84,8 @@ class _ProductItemState extends State<ProductItem> {
                     IconButton(
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
-                      icon: const Icon(Icons.add_shopping_cart),
-                      onPressed: () {},
+                      icon: Icon(widget.icon),
+                      onPressed: widget.onTap,
                     ),
                   ],
                 ),

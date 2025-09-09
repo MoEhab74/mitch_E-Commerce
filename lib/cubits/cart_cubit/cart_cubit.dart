@@ -20,6 +20,8 @@ class CartCubit extends Cubit<CartCubitState> {
   // Add product to cart
   void addToCart(ProductModel product) {
     _cartItems.add(product);
+    log('${product.title} added to cart');
+    print(_cartItems.length);
     emit(CartUpdatedSuccessfully(List.unmodifiable(_cartItems)));
   }
 
@@ -45,6 +47,7 @@ class CartCubit extends Cubit<CartCubitState> {
       product.isFavorite = true;
       _favorites.add(product);
       log('${product.title} added to favorites');
+      print(favorites);
     }
     emit(FavoritesUpdatedSuccessfully(favorites));
   }
