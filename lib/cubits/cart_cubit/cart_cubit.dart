@@ -35,8 +35,15 @@ class CartCubit extends Cubit<CartCubitState> {
 
   // Clear cart
   void clearCart() {
+    // check if cart is empty first
+    if (_cartItems.isNotEmpty){
     _cartItems.clear();
+    log('Cart cleared');
     emit(CartUpdatedSuccessfully(List.unmodifiable(_cartItems)));
+    }
+    else {
+      log('Cart is empty');
+    }
   }
 
   // Add to favorites

@@ -19,13 +19,23 @@ class CartPage extends StatelessWidget {
             onPressed: () {
               // Clear the cart
               // Show hint dialog first
-              showHintDialog(
-                context,
-                title: "Clear Cart",
-                content: "Are you sure you want to clear the cart?",
-                buttonText: "Clear",
-                onPressedAction: () => context.read<CartCubit>().clearCart(),
-              );
+              // check if cart is empty
+              if (context.read<CartCubit>().cartItems.isEmpty) {
+                showHintDialog(
+                  context,
+                  title: "Cart is empty",
+                  content: "Your cart is empty",
+                  buttonText: "OK",
+                );
+              } else {
+                showHintDialog(
+                  context,
+                  title: "Clear Cart",
+                  content: "Are you sure you want to clear the cart?",
+                  buttonText: "Clear",
+                  onPressedAction: () => context.read<CartCubit>().clearCart(),
+                );
+              }
             },
             icon: const Icon(Icons.delete_sweep_outlined, size: 32),
           ),
@@ -41,7 +51,12 @@ class CartPage extends StatelessWidget {
             final products = state.products;
 
             if (products.isEmpty) {
-              return const Center(child: Text("Cart is empty"));
+              return const Center(
+                child: Text(
+                  "Cart is empty",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                ),
+              );
             }
 
             return Padding(
@@ -69,5 +84,4 @@ class CartPage extends StatelessWidget {
       ),
     );
   }
-
 }
