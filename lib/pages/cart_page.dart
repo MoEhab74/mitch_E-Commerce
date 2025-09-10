@@ -45,10 +45,10 @@ class CartPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
-      body: BlocBuilder<CartCubit, CartCubitState>(
+      body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
-          final cartCubit = context.read<CartCubit>();
-          if (cartCubit.shouldRebuildCart) {
+          // final cartCubit = context.read<CartCubit>();  ===> // Solution without Extension on CartState
+          if (state.isCartOrFavoritesUpdatedSuccessfully) {
             final products = context.read<CartCubit>().cartItems;
             if (products.isEmpty) {
               return const Center(

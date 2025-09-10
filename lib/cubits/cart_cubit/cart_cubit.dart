@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/cubits/cart_cubit/cart_state.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
-class CartCubit extends Cubit<CartCubitState> {
+class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartCubitInitial());
 
   // List of user cart items

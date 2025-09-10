@@ -18,7 +18,7 @@ class FavouritesPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).colorScheme.secondary,
       ),
-      body: BlocSelector<CartCubit, CartCubitState, List<ProductModel>>(
+      body: BlocSelector<CartCubit, CartState, List<ProductModel>>(
         selector: (state) {
           // هنا هنسحب بس الفيفوريتس
           if (state is FavoritesUpdatedSuccessfully) {

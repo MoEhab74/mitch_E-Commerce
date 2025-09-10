@@ -49,7 +49,7 @@ class _ProductItemState extends State<ProductItem> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    BlocBuilder<CartCubit, CartCubitState>(
+                    BlocBuilder<CartCubit, CartState>(
                       builder: (context, state) {
                         return IconButton(
                           padding: EdgeInsets.zero,
