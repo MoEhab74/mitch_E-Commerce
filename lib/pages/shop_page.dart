@@ -89,14 +89,14 @@ class _ShopPageState extends State<ShopPage> {
             icon: Icon(isSearching ? Icons.close : Icons.search),
             onPressed: () {
               if (isSearching) {
-                // لو كان في حالة Search
                 setState(() {
                   isSearching = false;
                 });
-                // رجّع البيانات الأصلية
-                context.read<ShopCubit>().fetchShopData();
+                final shopCubit = context.read<ShopCubit>();
+                if (shopCubit.lastQuery?.isNotEmpty ?? false) {
+                  shopCubit.fetchShopData();
+                }
               } else {
-                // لو كان لسه هيفتح Search
                 setState(() {
                   isSearching = true;
                 });

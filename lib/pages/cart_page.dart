@@ -47,9 +47,9 @@ class CartPage extends StatelessWidget {
       ),
       body: BlocBuilder<CartCubit, CartCubitState>(
         builder: (context, state) {
-          if (state is CartUpdatedSuccessfully) {
-            final products = state.products;
-
+          final cartCubit = context.read<CartCubit>();
+          if (cartCubit.shouldRebuildCart) {
+            final products = context.read<CartCubit>().cartItems;
             if (products.isEmpty) {
               return const Center(
                 child: Text(

@@ -16,6 +16,9 @@ class CartCubit extends Cubit<CartCubitState> {
   final List<ProductModel> _favorites = [];
   List<ProductModel> get favorites => List.unmodifiable(_favorites);
 
+  // ShouldRebuildCart to determine if cart should be rebuilt
+  bool get shouldRebuildCart =>
+      state is CartUpdatedSuccessfully || state is FavoritesUpdatedSuccessfully;
 
   // Add product to cart
   void addToCart(ProductModel product) {
@@ -36,12 +39,11 @@ class CartCubit extends Cubit<CartCubitState> {
   // Clear cart
   void clearCart() {
     // check if cart is empty first
-    if (_cartItems.isNotEmpty){
-    _cartItems.clear();
-    log('Cart cleared');
-    emit(CartUpdatedSuccessfully(List.unmodifiable(_cartItems)));
-    }
-    else {
+    if (_cartItems.isNotEmpty) {
+      _cartItems.clear();
+      log('Cart cleared');
+      emit(CartUpdatedSuccessfully(List.unmodifiable(_cartItems)));
+    } else {
       log('Cart is empty');
     }
   }
