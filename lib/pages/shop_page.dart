@@ -20,85 +20,92 @@ class _ShopPageState extends State<ShopPage> {
   bool isSearching = false;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ShopCubit(),
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      drawer: Drawer(
         backgroundColor: Theme.of(context).colorScheme.surface,
-        drawer: Drawer(
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          child: Column(
-            children: [
-              DrawerHeader(
-                child: Icon(
-                  Icons.shopping_bag,
-                  size: 140,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
+        child: Column(
+          children: [
+            DrawerHeader(
+              child: Icon(
+                Icons.shopping_bag,
+                size: 140,
+                color: Theme.of(context).colorScheme.primary,
               ),
-              const SizedBox(height: 32),
-              MyListTile(
-                icon: Icons.home,
-                title: 'Home',
-                onTap: () {
-                  // Close the drawer first
-                  Navigator.of(context).pop();
-                  // Then navigate to the home page
-                  Navigator.of(context).pushNamed(HomePage.routeName);
-                },
-              ),
-              MyListTile(
-                icon: Icons.shopify_sharp,
-                title: 'Shop',
-                onTap: () {
-                  // Close the drawer
-                  Navigator.of(context).pop();
-                },
-              ),
-              MyListTile(
-                icon: Icons.add_shopping_cart,
-                title: 'Cart',
-                onTap: () {
-                  // Close the drawer
-                  Navigator.of(context).pop();
-                  // Then navigate to the cart page
-                  Navigator.of(context).pushNamed(CartPage.routeName);
-                },
-              ),
-              MyListTile(
-                icon: Icons.favorite,
-                title: 'Favourites',
-                onTap: () {
-                  // Close the drawer
-                  Navigator.of(context).pop();
-                  // Then navigate to the cart page
-                  Navigator.of(context).pushNamed(FavouritesPage.routeName);
-                },
-              ),
-            ],
-          ),
-        ),
-        appBar: AppBar(
-          title: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 400),
-            child: isSearching ? SearchTextField() : const Text('Shop Page'),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          foregroundColor: Theme.of(context).colorScheme.secondary,
-          actions: [
-            IconButton(
-              // Toggle the search icon
-              icon: Icon(isSearching ? Icons.close : Icons.search),
-              onPressed: () {
-                setState(() {
-                  isSearching = !isSearching;
-                });
+            ),
+            const SizedBox(height: 32),
+            MyListTile(
+              icon: Icons.home,
+              title: 'Home',
+              onTap: () {
+                // Close the drawer first
+                Navigator.of(context).pop();
+                // Then navigate to the home page
+                Navigator.of(context).pushNamed(HomePage.routeName);
+              },
+            ),
+            MyListTile(
+              icon: Icons.shopify_sharp,
+              title: 'Shop',
+              onTap: () {
+                // Close the drawer
+                Navigator.of(context).pop();
+              },
+            ),
+            MyListTile(
+              icon: Icons.add_shopping_cart,
+              title: 'Cart',
+              onTap: () {
+                // Close the drawer
+                Navigator.of(context).pop();
+                // Then navigate to the cart page
+                Navigator.of(context).pushNamed(CartPage.routeName);
+              },
+            ),
+            MyListTile(
+              icon: Icons.favorite,
+              title: 'Favourites',
+              onTap: () {
+                // Close the drawer
+                Navigator.of(context).pop();
+                // Then navigate to the cart page
+                Navigator.of(context).pushNamed(FavouritesPage.routeName);
               },
             ),
           ],
         ),
-        body: ShopPageProducts(),
       ),
+      appBar: AppBar(
+        title: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 400),
+          child: isSearching ? SearchTextField() : const Text('Shop Page'),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Theme.of(context).colorScheme.secondary,
+        actions: [
+          IconButton(
+            // Toggle the search icon
+            icon: Icon(isSearching ? Icons.close : Icons.search),
+            onPressed: () {
+              if (isSearching) {
+                // لو كان في حالة Search
+                setState(() {
+                  isSearching = false;
+                });
+                // رجّع البيانات الأصلية
+                context.read<ShopCubit>().fetchShopData();
+              } else {
+                // لو كان لسه هيفتح Search
+                setState(() {
+                  isSearching = true;
+                });
+              }
+            },
+          ),
+        ],
+      ),
+      body: ShopPageProducts(),
     );
   }
 }

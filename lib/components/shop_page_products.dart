@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/components/products_builder.dart';
 import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
+import 'package:minimal_e_commerce/cubits/shop_cubit/shop_states.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
 class ShopPageProducts extends StatefulWidget {
@@ -17,54 +18,30 @@ class _ShopPageProductsState extends State<ShopPageProducts> {
   @override
   void initState() {
     super.initState();
-    products = context.read<ShopCubit>().shopProducts;
+    // get the products first
+    products = context.read<ShopCubit>().fetchShopData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: ProductsBuilder(
-        products: products,
-        cubitFunction: context.read<CartCubit>().addToCart,
-        icon: Icons.add_shopping_cart,
-        snackBarMessage: "added to cart",
-      ),
+    return BlocBuilder<ShopCubit, ShopState>(
+      builder: (context, state) {
+        if (state is ShopLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is ShopSuccess) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: ProductsBuilder(
+              products: state.products, // خدت المنتجات من state
+              cubitFunction: context.read<CartCubit>().addToCart,
+              icon: Icons.add_shopping_cart,
+              snackBarMessage: "added to cart",
+            ),
+          );
+        } else {
+          return const Center(child: Text("No products found"));
+        }
+      },
     );
   }
 }
-
-
-
-
-/*
-return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                childAspectRatio: 0.75,
-                crossAxisCount: 2,
-              ),
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                return ProductItem(
-                  product: products[index],
-                  icon: Icons.remove_shopping_cart,
-                  onTap: () {
-                    context.read<CartCubit>().removeFromCart(products[index]);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("${products[index].title} removed"),
-                      ),
-                    );
-                  },
-                );
-              },
-            );
-            // Differences
-            // icon
-            // onTap action
-            // Cubit function
-            // Snack bar message
-            // 
-*/

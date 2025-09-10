@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
+import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
 import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
 import 'package:minimal_e_commerce/pages/home_page.dart';
@@ -17,8 +18,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CartCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => CartCubit()),
+        BlocProvider(create: (context) => ShopCubit()),
+      ],
       child: MaterialApp(
         routes: {
           HomePage.routeName: (context) => HomePage(),
