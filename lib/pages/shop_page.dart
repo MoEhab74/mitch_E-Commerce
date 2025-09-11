@@ -35,14 +35,14 @@ class _ShopPageState extends State<ShopPage> {
           IconButton(
             // Toggle the search icon
             icon: Icon(isSearching ? Icons.close : Icons.search),
-            onPressed: () {
+            onPressed: () async{
               if (isSearching) {
                 setState(() {
                   isSearching = false;
                 });
                 final shopCubit = context.read<ShopCubit>();
                 if (shopCubit.lastQuery?.isNotEmpty ?? false) {
-                  shopCubit.fetchShopData();
+                  await shopCubit.getAllProducts();
                 }
               } else {
                 setState(() {

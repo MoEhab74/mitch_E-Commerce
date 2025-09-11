@@ -19,7 +19,7 @@ class FavouritesPage extends StatelessWidget {
       ),
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
-          if (state.isCartOrFavoritesUpdatedSuccessfully) {
+          // if (state.isCartOrFavoritesUpdatedSuccessfully) {
             final favorites = context.read<CartCubit>().favorites;
 
             if (favorites.isEmpty) {
@@ -39,8 +39,8 @@ class FavouritesPage extends StatelessWidget {
                 snackBarMessage: "removed from Favorites",
               ),
             );
-          }
-          return const Center(child: CircularProgressIndicator());
+          // }
+          // return const Center(child: CircularProgressIndicator());
         },
       ),
     );

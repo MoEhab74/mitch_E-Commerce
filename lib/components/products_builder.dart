@@ -18,6 +18,14 @@ class ProductsBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (products.isEmpty) {
+      return const Center(
+        child: Text(
+          "Cart is empty",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+        ),
+      );
+    }
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         mainAxisSpacing: 16,
@@ -26,15 +34,14 @@ class ProductsBuilder extends StatelessWidget {
         crossAxisCount: 2,
       ),
       itemBuilder: (context, index) {
+        final product = products[index];
         return ProductItem(
-          product: products[index],
+          product: product,
           icon: icon,
           onTap: () {
-            cubitFunction(products[index]);
+            cubitFunction(product);
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text("${products[index].title} $snackBarMessage"),
-              ),
+              SnackBar(content: Text("${product.title} $snackBarMessage")),
             );
           },
         );
