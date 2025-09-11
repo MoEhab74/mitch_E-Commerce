@@ -6,6 +6,7 @@ import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
 import 'package:minimal_e_commerce/pages/home_page.dart';
 import 'package:minimal_e_commerce/pages/shop_page.dart';
+import 'package:minimal_e_commerce/theme/dark_theme.dart';
 import 'package:minimal_e_commerce/theme/light_theme.dart';
 
 void main() {
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           FavouritesPage.routeName: (context) => FavouritesPage(),
         },
         theme: lightMode,
+        darkTheme: darkMode,
         debugShowCheckedModeBanner: false,
         title: 'E-Commerce',
         home: HomePage(),
