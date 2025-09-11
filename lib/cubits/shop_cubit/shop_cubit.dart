@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_states.dart';
+import 'package:minimal_e_commerce/helper/api.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
 class ShopCubit extends Cubit<ShopState> {
@@ -10,8 +11,6 @@ class ShopCubit extends Cubit<ShopState> {
   // Get all products from the API
 
   final List<ProductModel> _shopProducts = [];
-  // unmodifiable to make it read only and protect from outside changes like add or remove
-  List<ProductModel> get shopProducts => List.unmodifiable(_shopProducts);
 
   // last query for checking if search is empty
   String? lastQuery;
@@ -36,6 +35,28 @@ class ShopCubit extends Cubit<ShopState> {
       );
     }
   }
+
+  // Fetch products from the API method
+
+  Future<void> getAllProducts() async {
+    // Get the products from the API
+    Map<String, dynamic> jsonData = await Api().getRequest(
+      'https://dummyjson.com/products',
+    );
+    // Get the Products key from the JSON data
+    List<dynamic> productsJson = jsonData['products'];
+    // Convert the JSON data to ProductModel objects
+    // each element in jsonData is a Map so we can model it to ProductModel
+    for (var product in productsJson) {
+      // Add the products to the list
+      _shopProducts.add(ProductModel.fromJson(product));
+    }
+    // Return the products
+    // return _shopProducts;
+  }
+
+  // unmodifiable to make it read only and protect from outside changes like add or remove
+  List<ProductModel> get shopProducts => List.unmodifiable(_shopProducts);
 
   List<ProductModel> fetchShopData() {
     emit(ShopLoading());
