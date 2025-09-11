@@ -21,8 +21,8 @@ class FavouritesPage extends StatelessWidget {
       body: BlocSelector<CartCubit, CartState, List<ProductModel>>(
         selector: (state) {
           // هنا هنسحب بس الفيفوريتس
-          if (state is FavoritesUpdatedSuccessfully) {
-            return state.products;
+          if (state.isCartOrFavoritesUpdatedSuccessfully) {
+            return context.read<CartCubit>().favorites;
           }
           return const [];
           // return context.read<CartCubit>().favorites;
