@@ -34,13 +34,11 @@ class FavouritesPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: ProductsBuilder(
                 products: favorites,
-                cubitFunction: context.read<CartCubit>().toggleFavorite,
-                icon: Icons.delete,
-                snackBarMessage: "removed from Favorites",
+                cubitFunction: context.read<CartCubit>().addToCart,
+                snackBarMessage: "Added to cart",
               ),
             );
           // }
-          // return const Center(child: CircularProgressIndicator());
         },
       ),
     );

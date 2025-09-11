@@ -7,13 +7,13 @@ class ProductsBuilder extends StatelessWidget {
     super.key,
     required this.products,
     required this.cubitFunction,
-    required this.icon,
+    this.icon,
     required this.snackBarMessage,
   });
 
   final List<ProductModel> products;
   final void Function(ProductModel) cubitFunction;
-  final IconData icon;
+  final IconData? icon;
   final String snackBarMessage;
 
   @override
@@ -37,7 +37,7 @@ class ProductsBuilder extends StatelessWidget {
         final product = products[index];
         return ProductItem(
           product: product,
-          icon: icon,
+          icon: icon ?? Icons.add_shopping_cart,
           onTap: () {
             cubitFunction(product);
             ScaffoldMessenger.of(context).showSnackBar(

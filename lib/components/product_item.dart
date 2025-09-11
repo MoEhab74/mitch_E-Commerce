@@ -6,7 +6,12 @@ import 'package:minimal_e_commerce/cubits/cart_cubit/cart_state.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
 class ProductItem extends StatefulWidget {
-  const ProductItem({super.key, required this.product, required this.icon, this.onTap});
+  const ProductItem({
+    super.key,
+    required this.product,
+    required this.icon,
+    this.onTap,
+  });
   final ProductModel product;
   final IconData icon;
   final VoidCallback? onTap;
@@ -28,7 +33,7 @@ class _ProductItemState extends State<ProductItem> {
         children: [
           Expanded(
             child: Image.network(
-              'https://img-lcwaikiki.mncdn.com/mnpadding/1020/1360/ffffff/pim/productimages/20252/8110640/v1/l_20252-w5br33z8-rql-94-73-85-187_a.jpg',
+              widget.product.images[0],
               width: double.infinity,
               height: 150,
               fit: BoxFit.fill,
