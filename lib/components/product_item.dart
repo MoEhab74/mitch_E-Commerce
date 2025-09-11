@@ -42,11 +42,15 @@ class _ProductItemState extends State<ProductItem> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      widget.product.title,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
+                    Expanded(
+                      child: Text(
+                        widget.product.title,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     BlocBuilder<CartCubit, CartState>(
@@ -58,8 +62,9 @@ class _ProductItemState extends State<ProductItem> {
                             Icons.favorite,
                             color: widget.product.isFavorite
                                 ? Colors.red
-                                : Colors.white,
+                                : Colors.grey,
                           ),
+                          iconSize: 28,
                           onPressed: () {
                             // Add to favorites logic ===> trigger the method from the cubit
                             context.read<CartCubit>().toggleFavorite(
@@ -75,7 +80,7 @@ class _ProductItemState extends State<ProductItem> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '\$ ${widget.product.price}',
+                      '\$ ${widget.product.price.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -84,7 +89,7 @@ class _ProductItemState extends State<ProductItem> {
                     IconButton(
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
-                      icon: Icon(widget.icon),
+                      icon: Icon(widget.icon, size: 28),
                       onPressed: widget.onTap,
                     ),
                   ],

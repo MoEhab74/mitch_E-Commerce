@@ -4,7 +4,6 @@ import 'package:minimal_e_commerce/components/products_builder.dart';
 import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_states.dart';
-import 'package:minimal_e_commerce/models/product_model.dart';
 
 class ShopPageProducts extends StatefulWidget {
   const ShopPageProducts({super.key});
@@ -14,12 +13,15 @@ class ShopPageProducts extends StatefulWidget {
 }
 
 class _ShopPageProductsState extends State<ShopPageProducts> {
-  List<ProductModel> products = [];
   @override
   void initState() {
     super.initState();
     // get the products first
-    products = context.read<ShopCubit>().fetchShopData();
+    _loadProducts();
+  }
+
+  Future<void> _loadProducts() async {
+    await context.read<ShopCubit>().getAllProducts();
   }
 
   @override
@@ -38,6 +40,8 @@ class _ShopPageProductsState extends State<ShopPageProducts> {
               snackBarMessage: "added to cart",
             ),
           );
+        } else if (state is ShopError) {
+          return Center(child: Text("Error: ${state.message}"));
         } else {
           return const Center(child: Text("No products found"));
         }
