@@ -10,7 +10,7 @@ class SearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onSubmitted: (value) {
+      onChanged: (value) {
         // Trigger search method here
         context.read<ShopCubit>().searchProduct(value);
       },

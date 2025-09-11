@@ -30,7 +30,6 @@ class FavouritesPage extends StatelessWidget {
                 ),
               );
             }
-
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: ProductsBuilder(
@@ -41,7 +40,6 @@ class FavouritesPage extends StatelessWidget {
               ),
             );
           }
-
           return const Center(child: CircularProgressIndicator());
         },
       ),
