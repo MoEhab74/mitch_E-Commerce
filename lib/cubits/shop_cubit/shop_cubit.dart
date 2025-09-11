@@ -66,12 +66,5 @@ class ShopCubit extends Cubit<ShopState> {
   // unmodifiable to make it read only and protect from outside changes like add or remove
   List<ProductModel> get shopProducts => List.unmodifiable(_shopProducts);
 
-  // List<ProductModel> fetchShopData() {
-  //   emit(ShopLoading());
-  //   // await Future.delayed(const Duration(seconds: 2));
-  //   lastQuery = null;
-  //   emit(ShopSuccess(_shopProducts));
-  //   log('Shop data fetched');
-  //   return _shopProducts;
-  // }
+  
 }

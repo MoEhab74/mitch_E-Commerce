@@ -31,10 +31,28 @@ class _ShopPageProductsState extends State<ShopPageProducts> {
         if (state is ShopLoading) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is ShopSuccess) {
+          if (state.products.isEmpty) {
+            final shopCubit = context.read<ShopCubit>();
+            if (shopCubit.lastQuery?.isNotEmpty ?? false) {
+              return const Center(
+                child: Text(
+                  "No products found",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                ),
+              );
+            } else {
+              return const Center(
+                child: Text(
+                  "No products available",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                ),
+              );
+            }
+          }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: ProductsBuilder(
-              products: state.products, 
+              products: state.products,
               cubitFunction: context.read<CartCubit>().addToCart,
               icon: Icons.add_shopping_cart,
               snackBarMessage: "added to cart",
@@ -43,7 +61,7 @@ class _ShopPageProductsState extends State<ShopPageProducts> {
         } else if (state is ShopError) {
           return Center(child: Text("Error: ${state.message}"));
         } else {
-          return const Center(child: Text("No products found"));
+          return const SizedBox.shrink();
         }
       },
     );
