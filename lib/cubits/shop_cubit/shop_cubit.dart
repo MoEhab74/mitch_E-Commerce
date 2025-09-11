@@ -7,18 +7,9 @@ import 'package:minimal_e_commerce/models/product_model.dart';
 class ShopCubit extends Cubit<ShopState> {
   ShopCubit() : super(ShopInitial());
 
-  final List<ProductModel> _shopProducts = [
-    ProductModel(title: 'Product A', price: 10, description: 'Lorem ipsum'),
-    ProductModel(title: 'Product B', price: 20, description: 'Lorem ipsum'),
-    ProductModel(title: 'Product C', price: 30, description: 'Lorem ipsum'),
-    ProductModel(title: 'Product D', price: 40, description: 'Lorem ipsum'),
-    ProductModel(title: 'Product E', price: 50, description: 'Lorem ipsum'),
-    ProductModel(title: 'Product F', price: 60, description: 'Lorem ipsum'),
-    ProductModel(title: 'Product G', price: 70, description: 'Lorem ipsum'),
-    ProductModel(title: 'Product H', price: 80, description: 'Lorem ipsum'),
-    ProductModel(title: 'Product I', price: 90, description: 'Lorem ipsum'),
-    ProductModel(title: 'Product J', price: 100, description: 'Lorem ipsum'),
-  ];
+  // Get all products from the API
+
+  final List<ProductModel> _shopProducts = [];
   // unmodifiable to make it read only and protect from outside changes like add or remove
   List<ProductModel> get shopProducts => List.unmodifiable(_shopProducts);
 
