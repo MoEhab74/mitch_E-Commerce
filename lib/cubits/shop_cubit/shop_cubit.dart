@@ -39,17 +39,25 @@ class ShopCubit extends Cubit<ShopState> {
   // Fetch products from the API method
 
   Future<void> getAllProducts() async {
+    emit(ShopLoading());
     // Get the products from the API
-    Map<String, dynamic> jsonData = await Api().getRequest(
-      'https://dummyjson.com/products',
-    );
-    // Get the Products key from the JSON data
-    List<dynamic> productsJson = jsonData['products'];
-    // Convert the JSON data to ProductModel objects
-    // each element in jsonData is a Map so we can model it to ProductModel
-    for (var product in productsJson) {
-      // Add the products to the list
-      _shopProducts.add(ProductModel.fromJson(product));
+    try {
+      Map<String, dynamic> jsonData = await Api().getRequest(
+        'https://dummyjson.com/products',
+      );
+      // Get the Products key from the JSON data
+      List<dynamic> productsJson = jsonData['products'];
+      // Convert the JSON data to ProductModel objects
+      // each element in jsonData is a Map so we can model it to ProductModel
+      for (var product in productsJson) {
+        // Add the products to the list
+        _shopProducts.add(ProductModel.fromJson(product));
+      }
+      lastQuery = null;
+      emit(ShopSuccess(_shopProducts));
+      log('Shop data fetched from the API successfully');
+    } catch (e) {
+      emit(ShopError(e.toString()));
     }
     // Return the products
     // return _shopProducts;

@@ -16,3 +16,8 @@ class ShopSuccess extends ShopState {
   final List<ProductModel> products;
   ShopSuccess(this.products);
 }
+
+class ShopError extends ShopState {
+  final String message;
+  ShopError(this.message);
+}
