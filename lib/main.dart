@@ -6,6 +6,8 @@ import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
 import 'package:minimal_e_commerce/pages/home_page.dart';
 import 'package:minimal_e_commerce/pages/shop_page.dart';
+import 'package:minimal_e_commerce/theme/dark_theme.dart';
+import 'package:minimal_e_commerce/theme/light_theme.dart';
 import 'package:minimal_e_commerce/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +38,9 @@ class MyApp extends StatelessWidget {
           CartPage.routeName: (context) => CartPage(),
           FavouritesPage.routeName: (context) => FavouritesPage(),
         },
-        theme: Provider.of<ThemeProvider>(context).themeMode,
+        theme: lightMode,
+        darkTheme: darkMode,
+        themeMode: context.watch<ThemeProvider>().themeMode,
         debugShowCheckedModeBanner: false,
         title: 'E-Commerce',
         home: HomePage(),
