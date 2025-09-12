@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:minimal_e_commerce/components/my_list_tile.dart';
-import 'package:minimal_e_commerce/helper/extentions.dart';
 import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
 import 'package:minimal_e_commerce/pages/home_page.dart';
