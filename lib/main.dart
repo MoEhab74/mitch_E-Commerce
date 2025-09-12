@@ -6,8 +6,6 @@ import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
 import 'package:minimal_e_commerce/pages/home_page.dart';
 import 'package:minimal_e_commerce/pages/shop_page.dart';
-import 'package:minimal_e_commerce/theme/dark_theme.dart';
-import 'package:minimal_e_commerce/theme/light_theme.dart';
 import 'package:minimal_e_commerce/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
