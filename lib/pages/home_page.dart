@@ -18,6 +18,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
   bool isSearching = false;
+
+  int? previousIndex;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +44,10 @@ class _HomePageState extends State<HomePage> {
               if (isSearching) {
                 setState(() {
                   isSearching = false;
+                  if (previousIndex != null) {
+                    selectedIndex = previousIndex!;
+                    previousIndex = null;
+                  }
                 });
                 final shopCubit = context.read<ShopCubit>();
                 if (shopCubit.lastQuery?.isNotEmpty ?? false) {
@@ -49,6 +55,8 @@ class _HomePageState extends State<HomePage> {
                 }
               } else {
                 setState(() {
+                  previousIndex = selectedIndex;
+                  selectedIndex = 0;
                   isSearching = true;
                 });
               }
