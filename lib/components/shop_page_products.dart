@@ -50,7 +50,7 @@ class _ShopPageProductsState extends State<ShopPageProducts> {
             }
           }
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             child: ProductsBuilder(
               products: state.products,
               cubitFunction: context.read<CartCubit>().addToCart,

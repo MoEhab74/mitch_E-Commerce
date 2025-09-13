@@ -47,6 +47,15 @@ class DrawerBody extends StatelessWidget {
             Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
           },
         ),
+          // profile
+        MyListTile(
+          icon: Icons.person,
+          title: 'Profile',
+          onTap: () {
+            // Close the drawer
+            Navigator.of(context).pop();
+          },
+        ),
       ],
     );
     // Change theme button
