@@ -4,7 +4,7 @@ import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
 import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
-import 'package:minimal_e_commerce/pages/home_page.dart';
+import 'package:minimal_e_commerce/pages/onboarding_page.dart';
 import 'package:minimal_e_commerce/pages/shop_page.dart';
 import 'package:minimal_e_commerce/theme/dark_theme.dart';
 import 'package:minimal_e_commerce/theme/light_theme.dart';
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         routes: {
-          HomePage.routeName: (context) => HomePage(),
+          OnBoardingPage.routeName: (context) => OnBoardingPage(),
           ShopPage.routeName: (context) => ShopPage(),
           CartPage.routeName: (context) => CartPage(),
           FavouritesPage.routeName: (context) => FavouritesPage(),
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         themeMode: context.watch<ThemeProvider>().themeMode,
         debugShowCheckedModeBanner: false,
         title: 'E-Commerce',
-        home: HomePage(),
+        home: OnBoardingPage(),
       ),
     );
   }

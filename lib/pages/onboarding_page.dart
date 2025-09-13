@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:minimal_e_commerce/components/ny_buttom.dart';
 import 'package:minimal_e_commerce/pages/shop_page.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class OnBoardingPage extends StatelessWidget {
+  const OnBoardingPage({super.key});
 
   static const routeName = 'HomePage';
 

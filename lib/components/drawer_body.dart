@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minimal_e_commerce/components/my_list_tile.dart';
-import 'package:minimal_e_commerce/pages/cart_page.dart';
-import 'package:minimal_e_commerce/pages/favourites_page.dart';
-import 'package:minimal_e_commerce/pages/home_page.dart';
+import 'package:minimal_e_commerce/pages/onboarding_page.dart';
 import 'package:minimal_e_commerce/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +26,7 @@ class DrawerBody extends StatelessWidget {
             // Close the drawer first
             Navigator.of(context).pop();
             // Then navigate to the home page
-            Navigator.of(context).pushNamed(HomePage.routeName);
+            Navigator.of(context).pushNamed(OnBoardingPage.routeName);
           },
         ),
         MyListTile(
@@ -37,26 +35,6 @@ class DrawerBody extends StatelessWidget {
           onTap: () {
             // Close the drawer
             Navigator.of(context).pop();
-          },
-        ),
-        MyListTile(
-          icon: Icons.add_shopping_cart,
-          title: 'Cart',
-          onTap: () {
-            // Close the drawer
-            Navigator.of(context).pop();
-            // Then navigate to the cart page
-            Navigator.of(context).pushNamed(CartPage.routeName);
-          },
-        ),
-        MyListTile(
-          icon: Icons.favorite,
-          title: 'Favourites',
-          onTap: () {
-            // Close the drawer
-            Navigator.of(context).pop();
-            // Then navigate to the cart page
-            Navigator.of(context).pushNamed(FavouritesPage.routeName);
           },
         ),
         MyListTile(
