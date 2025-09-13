@@ -64,7 +64,7 @@ class DrawerBody extends StatelessWidget {
           title: 'Change Theme',
           onTap: () {
             // Close the drawer
-            Navigator.of(context).pop();
+            // Navigator.of(context).pop();
             // Trigger the theme change from the ThemeProvider
             Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
           },
