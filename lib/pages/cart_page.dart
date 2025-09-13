@@ -12,38 +12,32 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            padding: const EdgeInsets.only(right: 8),
-            onPressed: () {
-              // Clear the cart
-              // Show hint dialog first
-              // check if cart is empty
-              if (context.read<CartCubit>().cartItems.isEmpty) {
-                showHintDialog(
-                  context,
-                  title: "Cart is empty",
-                  content: "Your cart is empty",
-                  buttonText: "OK",
-                );
-              } else {
-                showHintDialog(
-                  context,
-                  title: "Clear Cart",
-                  content: "Are you sure you want to clear the cart?",
-                  buttonText: "Clear",
-                  onPressedAction: () => context.read<CartCubit>().clearCart(),
-                );
-              }
-            },
-            icon: const Icon(Icons.delete_sweep_outlined, size: 32),
-          ),
-        ],
-        title: const Text('Cart Page'),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Theme.of(context).colorScheme.secondary,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Clear the cart
+          // Show hint dialog first
+          // check if cart is empty
+          if (context.read<CartCubit>().cartItems.isEmpty) {
+            showHintDialog(
+              context,
+              title: "Cart is empty",
+              content: "Your cart is empty",
+              buttonText: "OK",
+            );
+          } else {
+            showHintDialog(
+              context,
+              title: "Clear Cart",
+              content: "Are you sure you want to clear the cart?",
+              buttonText: "Clear",
+              onPressedAction: () => context.read<CartCubit>().clearCart(),
+            );
+          }
+        },
+        child: const Icon(
+          Icons.delete_sweep_outlined,
+          size: 32,
+        ),
       ),
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {

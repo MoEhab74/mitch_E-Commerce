@@ -4,6 +4,8 @@ import 'package:minimal_e_commerce/components/drawer_body.dart';
 import 'package:minimal_e_commerce/components/search_text_field.dart';
 import 'package:minimal_e_commerce/components/shop_page_products.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
+import 'package:minimal_e_commerce/pages/cart_page.dart';
+import 'package:minimal_e_commerce/pages/favourites_page.dart';
 
 class ShopPage extends StatefulWidget {
   const ShopPage({super.key});
@@ -14,6 +16,7 @@ class ShopPage extends StatefulWidget {
 }
 
 class _ShopPageState extends State<ShopPage> {
+  int selectedIndex = 0;
   bool isSearching = false;
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class _ShopPageState extends State<ShopPage> {
       appBar: AppBar(
         title: AnimatedSwitcher(
           duration: const Duration(milliseconds: 400),
-          child: isSearching ? SearchTextField() : const Text('Shop Page'),
+          child: isSearching ? SearchTextField() : const Text('Mitch Store'),
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
@@ -35,7 +38,7 @@ class _ShopPageState extends State<ShopPage> {
           IconButton(
             // Toggle the search icon
             icon: Icon(isSearching ? Icons.close : Icons.search),
-            onPressed: () async{
+            onPressed: () async {
               if (isSearching) {
                 setState(() {
                   isSearching = false;
@@ -53,9 +56,29 @@ class _ShopPageState extends State<ShopPage> {
           ),
         ],
       ),
-      body: ShopPageProducts(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: selectedIndex,
+        onTap: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_shopping_cart),
+            label: 'Cart',
+          ),
+        ],
+      ),
+      body: IndexedStack(
+        index: selectedIndex,
+        children: [ShopPageProducts(), FavouritesPage(), CartPage()],
+      ),
     );
   }
 }
-
-

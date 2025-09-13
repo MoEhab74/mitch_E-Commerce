@@ -11,12 +11,7 @@ class FavouritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Favourites Page'),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Theme.of(context).colorScheme.secondary,
-      ),
+      
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
           // if (state.isCartOrFavoritesUpdatedSuccessfully) {
