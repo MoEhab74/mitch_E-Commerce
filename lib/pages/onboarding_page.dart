@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minimal_e_commerce/components/ny_buttom.dart';
-import 'package:minimal_e_commerce/pages/shop_page.dart';
+import 'package:minimal_e_commerce/pages/home_page.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({super.key});
@@ -46,7 +46,7 @@ class OnBoardingPage extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             MyButtom(
-              onTap: () => Navigator.pushNamed(context, ShopPage.routeName),
+              onTap: () => Navigator.pushNamed(context, HomePage.routeName),
             )
           ],
         ),

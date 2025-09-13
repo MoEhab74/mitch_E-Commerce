@@ -7,15 +7,15 @@ import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
 import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
 
-class ShopPage extends StatefulWidget {
-  const ShopPage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
   static const routeName = 'ShopPage';
 
   @override
-  State<ShopPage> createState() => _ShopPageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _ShopPageState extends State<ShopPage> {
+class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
   bool isSearching = false;
   @override
