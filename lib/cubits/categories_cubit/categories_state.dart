@@ -11,8 +11,8 @@ class CategoriesLoading extends CategoriesState {
   CategoriesLoading() : super(categories: []);
 }
 
-class CategoriesLoaded extends CategoriesState {
-  CategoriesLoaded(List<String> categories) : super(categories: categories);
+class CategoriesSuccess extends CategoriesState {
+  CategoriesSuccess(List<String> categories) : super(categories: categories);
 }
 
 class CategoriesError extends CategoriesState {

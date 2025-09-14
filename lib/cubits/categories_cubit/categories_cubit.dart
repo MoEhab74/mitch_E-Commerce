@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/cubits/categories_cubit/categories_state.dart';
 import 'package:minimal_e_commerce/helper/api.dart';
@@ -8,15 +10,21 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   final List<String> _categories = [];
   // getAllCategories list
   Future<void> getAllCategories() async {
-    emit(CategoriesLoading());
-    List<dynamic> jsonData = await Api().getRequest(
-      'https://dummyjson.com/products/category-list',
-    );
-    for (var category in jsonData) {
-      _categories.add(category['category']);
+    try {
+      emit(CategoriesLoading());
+      List<dynamic> jsonData = await Api().getRequest(
+        'https://dummyjson.com/products/category-list',
+      );
+      for (var category in jsonData) {
+        _categories.add(category);
+      }
+      emit(CategoriesSuccess(_categories));
+      log('Categories loaded successfully');
+    } catch (e) {
+      emit(CategoriesError(e.toString()));
     }
-    emit(CategoriesLoaded(_categories));
   }
+
   // Unmodified list of categories
   List<String> get categoriesList => List.unmodifiable(_categories);
 }

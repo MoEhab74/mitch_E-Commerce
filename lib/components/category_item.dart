@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/cubits/categories_cubit/categories_cubit.dart';
@@ -17,7 +19,12 @@ class _CategoryItemsState extends State<CategoryItems> {
   void initState() {
     super.initState();
     // Get all the categories from the API
-    categories = BlocProvider.of<CategoriesCubit>(context).categoriesList;
+    _loadCategories();
+    log('Categories list fitched from the API successfully');
+  }
+
+  Future<void> _loadCategories() async {
+    await context.read<CategoriesCubit>().getAllCategories();
   }
 
   @override
@@ -28,10 +35,10 @@ class _CategoryItemsState extends State<CategoryItems> {
         builder: (context, state) {
           if (state is CategoriesLoading) {
             return const Center(child: CircularProgressIndicator());
-          }
-          else if (state is CategoriesError) {
+          } else if (state is CategoriesError) {
             return Center(child: Text(state.errorMessage));
           }
+          categories = state.categories;
           return ListView.separated(
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
@@ -51,7 +58,7 @@ class _CategoryItemsState extends State<CategoryItems> {
                     backgroundColor: selectedIndex == index
                         ? Theme.of(context).colorScheme.primary
                         : Theme.of(context).colorScheme.surface,
-                    label:  Text(categories![index]),
+                    label: Text(categories![index]),
                     labelPadding: const EdgeInsets.symmetric(horizontal: 8),
                     labelStyle: TextStyle(
                       fontSize: 16,
