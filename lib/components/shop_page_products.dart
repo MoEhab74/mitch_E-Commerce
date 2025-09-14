@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/components/category_item.dart';
 import 'package:minimal_e_commerce/components/products_builder.dart';
 import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
-import 'package:minimal_e_commerce/cubits/categories_cubit/categories_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_states.dart';
 
@@ -25,7 +24,6 @@ class _ShopPageProductsState extends State<ShopPageProducts> {
     // get the products first
     _loadProducts();
     // Simulate the pagination
-    
   }
 
   Future<void> _loadProducts() async {
@@ -50,22 +48,56 @@ class _ShopPageProductsState extends State<ShopPageProducts> {
                   if (state.products.isEmpty) {
                     final shopCubit = context.read<ShopCubit>();
                     if (shopCubit.lastQuery?.isNotEmpty ?? false) {
-                      return const Center(
-                        child: Text(
-                          "No products found",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
+                      // Search done but no results
+                      return Center(
+                        child: FadeIn(
+                          duration: const Duration(milliseconds: 600),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.search_off,
+                                size: 100,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                textAlign: TextAlign.center,
+                                "No products found\nTry searching for something else",
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       );
                     } else {
-                      return const Center(
-                        child: Text(
-                          "No products available",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
+                      // No products available in the store at all
+                      return Center(
+                        child: FadeIn(
+                          duration: const Duration(milliseconds: 600),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.shopping_bag_outlined,
+                                size: 100,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                textAlign: TextAlign.center,
+                                "No products available\nCheck back later for new items",
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       );
@@ -84,7 +116,27 @@ class _ShopPageProductsState extends State<ShopPageProducts> {
                     ),
                   );
                 } else if (state is ShopError) {
-                  return Center(child: Text("Error: ${state.message}"));
+                  return Center(
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.error,
+                          size: 100,
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          "Error: ${state.message.length > 50 ? {'${state.message.substring(0, 50)} ....'} : state.message}",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.error,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
                 } else {
                   return const SizedBox.shrink();
                 }

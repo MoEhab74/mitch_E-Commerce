@@ -36,7 +36,25 @@ class _CategoryItemsState extends State<CategoryItems> {
           if (state is CategoriesLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is CategoriesError) {
-            return Center(child: Text(state.errorMessage));
+            return Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.error,
+                    color: Theme.of(context).colorScheme.error,
+                    size: 24,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Error: ${state.errorMessage.length > 50 ? {'${state.errorMessage.substring(0, 30)} ....'} : state.errorMessage}',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                  ),
+                ],
+              ),
+            );
           }
           categories = state.categories;
           return ListView.separated(
