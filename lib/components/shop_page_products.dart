@@ -6,6 +6,7 @@ import 'package:minimal_e_commerce/components/products_builder.dart';
 import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_states.dart';
+import 'package:minimal_e_commerce/helper/empty_state_message.dart';
 
 class ShopPageProducts extends StatefulWidget {
   const ShopPageProducts({super.key});
@@ -49,30 +50,10 @@ class _ShopPageProductsState extends State<ShopPageProducts> {
                     final shopCubit = context.read<ShopCubit>();
                     if (shopCubit.lastQuery?.isNotEmpty ?? false) {
                       // Search done but no results
-                      return Center(
-                        child: FadeIn(
-                          duration: const Duration(milliseconds: 600),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.search_off,
-                                size: 100,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                              const SizedBox(height: 16),
-                              Text(
-                                textAlign: TextAlign.center,
-                                "No products found\nTry searching for something else",
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                      return EmptyStateMessage(
+                        message:
+                            "No products found\nTry searching for something else",
+                        icon: Icons.search_off,
                       );
                     } else {
                       // No products available in the store at all
