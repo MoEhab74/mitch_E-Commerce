@@ -1,11 +1,12 @@
 // product_item.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minimal_e_commerce/components/fav_icon_builder.dart';
 import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
 import 'package:minimal_e_commerce/cubits/cart_cubit/cart_state.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
-class ProductItem extends StatefulWidget {
+class ProductItem extends StatelessWidget {
   const ProductItem({
     super.key,
     required this.product,
@@ -16,11 +17,6 @@ class ProductItem extends StatefulWidget {
   final IconData icon;
   final VoidCallback? onTap;
 
-  @override
-  State<ProductItem> createState() => _ProductItemState();
-}
-
-class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,7 +29,7 @@ class _ProductItemState extends State<ProductItem> {
         children: [
           Expanded(
             child: Image.network(
-              widget.product.images[0],
+              product.images[0],
               width: double.infinity,
               height: 150,
               fit: BoxFit.fill,
@@ -49,7 +45,7 @@ class _ProductItemState extends State<ProductItem> {
                   children: [
                     Expanded(
                       child: Text(
-                        widget.product.title,
+                        product.title,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -58,34 +54,14 @@ class _ProductItemState extends State<ProductItem> {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    BlocBuilder<CartCubit, CartState>(
-                      builder: (context, state) {
-                        return IconButton(
-                          padding: EdgeInsets.zero,
-                          constraints: const BoxConstraints(),
-                          icon: Icon(
-                            Icons.favorite,
-                            color: widget.product.isFavorite
-                                ? Colors.red
-                                : Colors.grey,
-                          ),
-                          iconSize: 28,
-                          onPressed: () {
-                            // Add to favorites logic ===> trigger the method from the cubit
-                            context.read<CartCubit>().toggleFavorite(
-                              widget.product,
-                            );
-                          },
-                        );
-                      },
-                    ),
+                    FavoriteIconBuilder(product: product),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '\$ ${widget.product.price.toStringAsFixed(2)}',
+                      '\$ ${product.price.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -94,8 +70,8 @@ class _ProductItemState extends State<ProductItem> {
                     IconButton(
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
-                      icon: Icon(widget.icon, size: 28),
-                      onPressed: widget.onTap,
+                      icon: Icon(icon, size: 28),
+                      onPressed: onTap,
                     ),
                   ],
                 ),
@@ -107,3 +83,4 @@ class _ProductItemState extends State<ProductItem> {
     );
   }
 }
+
