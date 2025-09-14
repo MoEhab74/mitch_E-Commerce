@@ -51,24 +51,30 @@ class _CategoryItemsState extends State<CategoryItems> {
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Chip(
-                    shape: const StadiumBorder(
-                      side: BorderSide(color: Colors.transparent),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
                     ),
-                    backgroundColor: selectedIndex == index
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.surface,
-                    label: Text(categories![index]),
-                    labelPadding: const EdgeInsets.symmetric(horizontal: 8),
-                    labelStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                    decoration: BoxDecoration(
                       color: selectedIndex == index
-                          ? Colors.white
-                          : Theme.of(context).colorScheme.primary,
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.surface,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: selectedIndex == index
+                          ? [BoxShadow(color: Colors.black12, blurRadius: 5)]
+                          : [],
                     ),
-                    side: BorderSide(
-                      color: Theme.of(context).colorScheme.primary,
+                    child: Text(
+                      categories![index],
+                      style: TextStyle(
+                        color: selectedIndex == index
+                            ? Colors.white
+                            : Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w600,
+                        fontSize: selectedIndex == index ? 16 : 14,
+                      ),
                     ),
                   ),
                 ),

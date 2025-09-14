@@ -36,6 +36,8 @@ class _ShopPageProductsState extends State<ShopPageProducts> {
           // Categories
           const SizedBox(height: 8),
           CategoryItems(),
+          const SizedBox(height: 8),
+
           Expanded(
             child: BlocBuilder<ShopCubit, ShopState>(
               builder: (context, state) {
