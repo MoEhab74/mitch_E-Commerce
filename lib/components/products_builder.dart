@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minimal_e_commerce/components/product_item.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
+import 'package:minimal_e_commerce/pages/products_details_view.dart';
 
 class ProductsBuilder extends StatefulWidget {
   const ProductsBuilder({
@@ -43,15 +44,25 @@ class _ProductsBuilderState extends State<ProductsBuilder> {
       ),
       itemBuilder: (context, index) {
         final product = widget.products[index];
-        return ProductItem(
-          product: product,
-          icon: widget.icon ?? Icons.add_shopping_cart,
+        return GestureDetector(
           onTap: () {
-            widget.cubitFunction(product);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("${product.title} ${widget.snackBarMessage}")),
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProductDetailsView(product: product,)),
             );
           },
+          child: ProductItem(
+            product: product,
+            icon: widget.icon ?? Icons.add_shopping_cart,
+            onTap: () {
+              widget.cubitFunction(product);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("${product.title} ${widget.snackBarMessage}"),
+                ),
+              );
+            },
+          ),
         );
       },
       itemCount: widget.products.length,
