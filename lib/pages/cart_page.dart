@@ -43,29 +43,9 @@ class CartPage extends StatelessWidget {
           if (state.isCartOrFavoritesUpdatedSuccessfully) {
             final products = context.read<CartCubit>().cartItems;
             if (products.isEmpty) {
-              return Center(
-                child: FadeIn(
-                  duration: const Duration(milliseconds: 600),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.shopping_cart_outlined,
-                        size: 100,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        "Your cart is empty",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              return const EmptyStateMessage(
+                message: "Your cart is empty",
+                icon: Icons.shopping_cart_outlined,
               );
             }
 
@@ -80,15 +60,47 @@ class CartPage extends StatelessWidget {
             );
           }
           if (state is CartCubitInitial) {
-            return const Center(
-              child: Text(
-                "Cart is empty",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
-              ),
+            return const EmptyStateMessage(
+              message: "Your cart is empty",
+              icon: Icons.shopping_cart_outlined,
             );
           }
           return const Center(child: CircularProgressIndicator());
         },
+      ),
+    );
+  }
+}
+
+class EmptyStateMessage extends StatelessWidget {
+  const EmptyStateMessage({
+    super.key,
+    required this.message,
+    required this.icon,
+  });
+  final String message;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: FadeIn(
+        duration: const Duration(milliseconds: 600),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 100, color: Theme.of(context).colorScheme.primary),
+            const SizedBox(height: 16),
+            Text(
+              message,
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
