@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:minimal_e_commerce/components/product_item.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
-class ProductsBuilder extends StatelessWidget {
+class ProductsBuilder extends StatefulWidget {
   const ProductsBuilder({
     super.key,
     required this.products,
@@ -15,10 +15,16 @@ class ProductsBuilder extends StatelessWidget {
   final void Function(ProductModel) cubitFunction;
   final IconData? icon;
   final String snackBarMessage;
+  // final ScrollController? scrollController;
 
   @override
+  State<ProductsBuilder> createState() => _ProductsBuilderState();
+}
+
+class _ProductsBuilderState extends State<ProductsBuilder> {
+  @override
   Widget build(BuildContext context) {
-    if (products.isEmpty) {
+    if (widget.products.isEmpty) {
       return const Center(
         child: Text(
           "Cart is empty",
@@ -27,6 +33,8 @@ class ProductsBuilder extends StatelessWidget {
       );
     }
     return GridView.builder(
+      // controller: widget.scrollController,
+      physics: const AlwaysScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         mainAxisSpacing: 16,
         crossAxisSpacing: 16,
@@ -34,19 +42,19 @@ class ProductsBuilder extends StatelessWidget {
         crossAxisCount: 2,
       ),
       itemBuilder: (context, index) {
-        final product = products[index];
+        final product = widget.products[index];
         return ProductItem(
           product: product,
-          icon: icon ?? Icons.add_shopping_cart,
+          icon: widget.icon ?? Icons.add_shopping_cart,
           onTap: () {
-            cubitFunction(product);
+            widget.cubitFunction(product);
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("${product.title} $snackBarMessage")),
+              SnackBar(content: Text("${product.title} ${widget.snackBarMessage}")),
             );
           },
         );
       },
-      itemCount: products.length,
+      itemCount: widget.products.length,
     );
   }
 }

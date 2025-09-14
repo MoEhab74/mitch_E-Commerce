@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/components/category_item.dart';
@@ -16,11 +17,15 @@ class ShopPageProducts extends StatefulWidget {
 
 class _ShopPageProductsState extends State<ShopPageProducts> {
   int selectedIndex = 0;
+  // final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
     // get the products first
     _loadProducts();
+    // Simulate the pagination
+    
   }
 
   Future<void> _loadProducts() async {
@@ -29,16 +34,14 @@ class _ShopPageProductsState extends State<ShopPageProducts> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CategoriesCubit(),
-      child: Column(
-        children: [
-          // Categories
-          const SizedBox(height: 8),
-          CategoryItems(),
-          const SizedBox(height: 8),
-
-          Expanded(
+    return Column(
+      children: [
+        // Categories
+        const SizedBox(height: 8),
+        CategoryItems(),
+        const SizedBox(height: 8),
+        Expanded(
+          child: FadeInUp(
             child: BlocBuilder<ShopCubit, ShopState>(
               builder: (context, state) {
                 if (state is ShopLoading) {
@@ -88,8 +91,8 @@ class _ShopPageProductsState extends State<ShopPageProducts> {
               },
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

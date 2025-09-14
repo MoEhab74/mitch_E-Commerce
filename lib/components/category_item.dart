@@ -45,7 +45,6 @@ class _CategoryItemsState extends State<CategoryItems> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  
                   setState(() {
                     selectedIndex = index;
                   });
