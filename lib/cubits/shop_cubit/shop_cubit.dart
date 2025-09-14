@@ -14,6 +14,10 @@ class ShopCubit extends Cubit<ShopState> {
 
   // last query for checking if search is empty
   String? lastQuery;
+  
+
+  // List of filterd products by category
+  List<ProductModel> filteredProducts = [];
 
   // Search about product by title
 
@@ -66,5 +70,11 @@ class ShopCubit extends Cubit<ShopState> {
   // unmodifiable to make it read only and protect from outside changes like add or remove
   List<ProductModel> get shopProducts => List.unmodifiable(_shopProducts);
 
-  
+  // Filter products by category  ===> i'll handle it from the API endpoint like getAllProducts
+  void filterProductsByCategory(String category) {
+    filteredProducts = _shopProducts
+        .where((product) => product.category == category)
+        .toList();
+    emit(ShopSuccess(filteredProducts));
+  }
 }

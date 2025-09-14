@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/components/category_item.dart';
 import 'package:minimal_e_commerce/components/products_builder.dart';
-import 'package:minimal_e_commerce/constants.dart';
 import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop_cubit/shop_states.dart';
@@ -33,50 +32,7 @@ class _ShopPageProductsState extends State<ShopPageProducts> {
       children: [
         // Categories
         const SizedBox(height: 8),
-        SizedBox(
-          height: 40,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Chip(
-                    shape: const StadiumBorder(
-                      side: BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    backgroundColor: selectedIndex == index
-                        ? Theme.of(context).colorScheme.primary
-                        : Theme.of(context).colorScheme.surface,
-                    label: Text(categories[index]),
-                    labelPadding: const EdgeInsets.symmetric(horizontal: 8),
-                    labelStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: selectedIndex == index
-                          ? Colors.white
-                          : Theme.of(context).colorScheme.primary,
-                    ),
-                    side: BorderSide(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                ),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const SizedBox();
-            },
-            itemCount: categories.length,
-          ),
-        ),
+        CategoryItems(),
         Expanded(
           child: BlocBuilder<ShopCubit, ShopState>(
             builder: (context, state) {

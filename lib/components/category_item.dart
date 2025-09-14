@@ -1,46 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:minimal_e_commerce/constants.dart';
 
-class CategoryItem extends StatelessWidget {
-  const CategoryItem({
-    super.key,
-    required this.title,
-    this.color,
-    this.onTap,
-    required this.titleColor,
-  });
-  final String title;
-  final Color titleColor;
-  final Color? color;
-  final VoidCallback? onTap;
+class CategoryItems extends StatefulWidget {
+  const CategoryItems({super.key});
 
   @override
+  State<CategoryItems> createState() => _CategoryItemsState();
+}
+
+class _CategoryItemsState extends State<CategoryItems> {
+  int selectedIndex = 0;
+  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsDirectional.only(start: 4, end: 4),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          padding: EdgeInsets.all(8.0),
-          height: 40,
-          width: 80,
-          decoration: BoxDecoration(
-            color: color ?? Theme.of(context).colorScheme.primary,
-            border: Border.all(
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-            ),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Center(
-            child: Text(
-              title,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: titleColor,
+    return SizedBox(
+      height: 40,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedIndex = index;
+              });
+              // Filter products by category ===> trigger the method from ShopCubit
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Chip(
+                shape: const StadiumBorder(
+                  side: BorderSide(color: Colors.transparent),
+                ),
+                backgroundColor: selectedIndex == index
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.surface,
+                label: Text(categories[index]),
+                labelPadding: const EdgeInsets.symmetric(horizontal: 8),
+                labelStyle: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: selectedIndex == index
+                      ? Colors.white
+                      : Theme.of(context).colorScheme.primary,
+                ),
+                side: BorderSide(color: Theme.of(context).colorScheme.primary),
               ),
             ),
-          ),
-        ),
+          );
+        },
+        separatorBuilder: (context, index) {
+          return const SizedBox();
+        },
+        itemCount: categories.length,
       ),
     );
   }

@@ -4,7 +4,7 @@ class Api{
   // here i'll put the basics of my api requests
   final Dio _dio = Dio();
   
-  // Get request
+  // getAllProducts request
   Future<dynamic> getRequest(String url) async{
     // Fetching data from the API
     Response response = await _dio.get(url);
@@ -19,4 +19,6 @@ class Api{
       );
     }
   }
+
+  // 
 }
