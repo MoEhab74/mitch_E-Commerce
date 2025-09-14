@@ -7,10 +7,10 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   // Gategories list
   final List<String> _categories = [];
   // getAllCategories list
-  Future<void> getAllCategories(String category) async {
+  Future<void> getAllCategories() async {
     emit(CategoriesLoading());
     List<dynamic> jsonData = await Api().getRequest(
-      'https://dummyjson.com/products/$category',
+      'https://dummyjson.com/products/category-list',
     );
     for (var category in jsonData) {
       _categories.add(category['category']);
