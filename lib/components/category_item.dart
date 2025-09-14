@@ -40,10 +40,12 @@ class _CategoryItemsState extends State<CategoryItems> {
           }
           categories = state.categories;
           return ListView.separated(
+            physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
+                  
                   setState(() {
                     selectedIndex = index;
                   });
