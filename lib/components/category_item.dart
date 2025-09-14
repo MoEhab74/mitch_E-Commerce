@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/cubits/categories_cubit/categories_cubit.dart';
 import 'package:minimal_e_commerce/cubits/categories_cubit/categories_state.dart';
+import 'package:minimal_e_commerce/helper/categories_error_message.dart';
 
 class CategoryItems extends StatefulWidget {
   const CategoryItems({super.key});
@@ -36,25 +37,7 @@ class _CategoryItemsState extends State<CategoryItems> {
           if (state is CategoriesLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is CategoriesError) {
-            return Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.error,
-                    color: Theme.of(context).colorScheme.error,
-                    size: 24,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Error: ${state.errorMessage.length > 50 ? {'${state.errorMessage.substring(0, 30)} ....'} : state.errorMessage}',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
-                    ),
-                  ),
-                ],
-              ),
-            );
+            return CategoriesErrorMessage(errorMessage: state.errorMessage);
           }
           categories = state.categories;
           return ListView.separated(
@@ -109,3 +92,4 @@ class _CategoryItemsState extends State<CategoryItems> {
     );
   }
 }
+
