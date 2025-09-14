@@ -48,7 +48,6 @@ class CartPage extends StatelessWidget {
                 icon: Icons.shopping_cart_outlined,
               );
             }
-
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: ProductsBuilder(

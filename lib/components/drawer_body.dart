@@ -38,8 +38,13 @@ class DrawerBody extends StatelessWidget {
           },
         ),
         MyListTile(
-          icon: Icons.dark_mode,
-          title: 'Change Theme',
+          // Check if the theme is dark or light first
+          icon: Theme.of(context).brightness == Brightness.dark
+              ? Icons.dark_mode
+              : Icons.light_mode,
+          // Check if the theme is dark or light first
+          title:
+              '${Theme.of(context).brightness == Brightness.dark ? 'Light' : 'Dark'} Mode',
           onTap: () {
             // Close the drawer
             // Navigator.of(context).pop();
@@ -47,7 +52,7 @@ class DrawerBody extends StatelessWidget {
             Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
           },
         ),
-          // profile
+        // profile
         MyListTile(
           icon: Icons.person,
           title: 'Profile',
