@@ -10,14 +10,13 @@ class ShopCubit extends Cubit<ShopState> {
 
   // Get all products from the API
 
-  final List<ProductModel> _shopProducts = [];
+  List<ProductModel> _shopProducts = [];
 
   // last query for checking if search is empty
   String? lastQuery;
-  
 
-  // List of filterd products by category
-  List<ProductModel> filteredProducts = [];
+  // List of filterd products by category ===> it'll be used for search
+  List<ProductModel> _filteredProducts = [];
 
   // Search about product by title
 
@@ -53,10 +52,10 @@ class ShopCubit extends Cubit<ShopState> {
       List<dynamic> productsJson = jsonData['products'];
       // Convert the JSON data to ProductModel objects
       // each element in jsonData is a Map so we can model it to ProductModel
-      for (var product in productsJson) {
-        // Add the products to the list
-        _shopProducts.add(ProductModel.fromJson(product));
-      }
+      _shopProducts = productsJson
+          .map((product) => ProductModel.fromJson(product))
+          .toList();
+
       lastQuery = null;
       emit(ShopSuccess(_shopProducts));
       log('Shop data fetched from the API successfully');
@@ -71,10 +70,27 @@ class ShopCubit extends Cubit<ShopState> {
   List<ProductModel> get shopProducts => List.unmodifiable(_shopProducts);
 
   // Filter products by category  ===> i'll handle it from the API endpoint like getAllProducts
-  void filterProductsByCategory(String category) {
-    filteredProducts = _shopProducts
-        .where((product) => product.category == category)
-        .toList();
-    emit(ShopSuccess(filteredProducts));
+  Future<void> filterProductsByCategory(String category) async {
+    emit(ShopLoading());
+    try {
+      // Get the products from the API
+      Map<String, dynamic> jsonData = await Api().getRequest(
+        'https://dummyjson.com/products/category/$category',
+      );
+      // Get the Products key from the JSON data
+      List<dynamic> productsJson = jsonData['products'];
+      // Convert the JSON data to ProductModel objects
+      // each element in jsonData is a Map so we can model it to ProductModel
+      // Clear the filteredProducts list after using it to filter the products again in the next call
+      _filteredProducts = productsJson
+          .map((product) => ProductModel.fromJson(product))
+          .toList();
+
+      lastQuery = null;
+      emit(ShopSuccess(_filteredProducts));
+      log('Shop data fetched from the API successfully');
+    } catch (e) {
+      emit(ShopError(e.toString()));
+    }
   }
 }

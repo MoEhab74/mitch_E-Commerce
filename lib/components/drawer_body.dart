@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/components/my_list_tile.dart';
+import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
 import 'package:minimal_e_commerce/pages/onboarding_page.dart';
 import 'package:minimal_e_commerce/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -46,8 +48,6 @@ class DrawerBody extends StatelessWidget {
           title:
               '${Theme.of(context).brightness == Brightness.dark ? 'Light' : 'Dark'} Mode',
           onTap: () {
-            // Close the drawer
-            // Navigator.of(context).pop();
             // Trigger the theme change from the ThemeProvider
             Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
           },
@@ -59,6 +59,18 @@ class DrawerBody extends StatelessWidget {
           onTap: () {
             // Close the drawer
             Navigator.of(context).pop();
+            // Navigate to the profile page
+          },
+        ),
+        // All Products
+        MyListTile(
+          icon: Icons.list,
+          title: 'All Products',
+          onTap: () {
+            // Close the drawer
+            Navigator.of(context).pop();
+            // get all products
+            BlocProvider.of<ShopCubit>(context).getAllProducts();
           },
         ),
       ],

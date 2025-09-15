@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/cubits/categories_cubit/categories_cubit.dart';
 import 'package:minimal_e_commerce/cubits/categories_cubit/categories_state.dart';
+import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
 import 'package:minimal_e_commerce/helper/categories_error_message.dart';
 
 class CategoryItems extends StatefulWidget {
@@ -50,6 +51,9 @@ class _CategoryItemsState extends State<CategoryItems> {
                     selectedIndex = index;
                   });
                   // Filter products by category ===> trigger the method from ShopCubit
+                  context
+                      .read<ShopCubit>()
+                      .filterProductsByCategory(categories![selectedIndex]);
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
