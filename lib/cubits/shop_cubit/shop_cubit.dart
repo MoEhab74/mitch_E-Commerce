@@ -18,24 +18,25 @@ class ShopCubit extends Cubit<ShopState> {
   // List of filterd products by category ===> it'll be used for search
   List<ProductModel> _filteredProducts = [];
 
-  // Search about product by title
+  // Search through the API
 
-  void searchProduct(String query) {
-    lastQuery = query;
-    if (query.isEmpty) {
-      emit(ShopSuccess(_shopProducts));
-    } else {
-      log('Searching for $query');
-      emit(
-        ShopSuccess(
-          _shopProducts
-              .where(
-                (product) =>
-                    product.title.toLowerCase().contains(query.toLowerCase()),
-              )
-              .toList(),
-        ),
+  Future<void> searchProduct(String query) async {
+    emit(ShopLoading());
+    try {
+      // Get the products from the API
+      Map<String, dynamic> jsonData = await Api().getRequest(
+        'https://dummyjson.com/products/search?q=$query',
       );
+      // Get the Products key from the JSON data
+      List<dynamic> productsJson = jsonData['products'];
+      // Convert the JSON data to ProductModel objects
+      // each element in jsonData is a Map so we can model it to ProductModel
+      _shopProducts = productsJson.map((product) => ProductModel.fromJson(product)).toList();
+      lastQuery = query;
+      emit(ShopSuccess(_shopProducts));
+      log('Search from the API done successfully');
+    } catch (e) {
+      emit(ShopError(e.toString()));
     }
   }
 

@@ -20,7 +20,6 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       }
       // Add all category to the list
       _categories = ['all', ..._categories];
-      // _categories.insert(0, 'all');
       emit(CategoriesSuccess(_categories));
       log('Categories loaded successfully');
     } catch (e) {
