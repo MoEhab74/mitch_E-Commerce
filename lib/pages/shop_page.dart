@@ -37,7 +37,7 @@ class _ShopPageState extends State<ShopPage> {
             child: isSearching ? SearchTextField() : const Text('Mitch Store'),
           ),
           centerTitle: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           foregroundColor: Theme.of(context).colorScheme.secondary,
           actions: [
             IconButton(
