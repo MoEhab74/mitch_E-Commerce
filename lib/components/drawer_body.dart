@@ -61,18 +61,7 @@ class DrawerBody extends StatelessWidget {
             Navigator.of(context).pop();
             // Navigate to the profile page
           },
-        ),
-        // All Products
-        MyListTile(
-          icon: Icons.list,
-          title: 'All Products',
-          onTap: () {
-            // Close the drawer
-            Navigator.of(context).pop();
-            // get all products
-            BlocProvider.of<ShopCubit>(context).getAllProducts();
-          },
-        ),
+        ),        
       ],
     );
     // Change theme button

@@ -7,7 +7,7 @@ import 'package:minimal_e_commerce/helper/api.dart';
 class CategoriesCubit extends Cubit<CategoriesState> {
   CategoriesCubit() : super(CategoriesInitial());
   // Gategories list
-  final List<String> _categories = [];
+  List<String> _categories = [];
   // getAllCategories list
   Future<void> getAllCategories() async {
     try {
@@ -18,6 +18,9 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       for (var category in jsonData) {
         _categories.add(category);
       }
+      // Add all category to the list
+      _categories = ['all', ..._categories];
+      // _categories.insert(0, 'all');
       emit(CategoriesSuccess(_categories));
       log('Categories loaded successfully');
     } catch (e) {

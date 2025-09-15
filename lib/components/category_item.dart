@@ -51,16 +51,18 @@ class _CategoryItemsState extends State<CategoryItems> {
                     selectedIndex = index;
                   });
                   // Filter products by category ===> trigger the method from ShopCubit
-                  context
-                      .read<ShopCubit>()
-                      .filterProductsByCategory(categories![selectedIndex]);
+                  index == 0
+                      ? context.read<ShopCubit>().getAllProducts()
+                      : context.read<ShopCubit>().filterProductsByCategory(
+                          categories![selectedIndex],
+                        );
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
+                      horizontal: 16,
                       vertical: 8,
                     ),
                     decoration: BoxDecoration(
@@ -96,4 +98,3 @@ class _CategoryItemsState extends State<CategoryItems> {
     );
   }
 }
-
