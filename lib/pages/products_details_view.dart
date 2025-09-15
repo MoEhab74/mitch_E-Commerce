@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/components/fav_icon_builder.dart';
+import 'package:minimal_e_commerce/components/my_elevated_button.dart';
 import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
-import 'package:minimal_e_commerce/cubits/cart_cubit/cart_state.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
 class ProductDetailsView extends StatelessWidget {
@@ -32,6 +32,7 @@ class ProductDetailsView extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 16),
             // Product title
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -50,7 +51,7 @@ class ProductDetailsView extends StatelessWidget {
             // Product description
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
+              child: SelectableText(
                 product.description,
                 style: TextStyle(
                   fontFamily: 'Lora',
@@ -103,9 +104,19 @@ class ProductDetailsView extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 24),
+            // Add to cart button
+            MyElevatedButton(
+              product: product,
+              lableText: 'Add to cart',
+              icon: Icons.add_shopping_cart,
+              snackBarMessage: 'added to cart',
+              cubitFunction: context.read<CartCubit>().addToCart,
+            ),
           ],
         ),
       ),
     );
   }
 }
+

@@ -48,7 +48,9 @@ class _ProductsBuilderState extends State<ProductsBuilder> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ProductDetailsView(product: product,)),
+              MaterialPageRoute(
+                builder: (context) => ProductDetailsView(product: product),
+              ),
             );
           },
           child: ProductItem(
@@ -59,6 +61,9 @@ class _ProductsBuilderState extends State<ProductsBuilder> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text("${product.title} ${widget.snackBarMessage}"),
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Theme.of(context).colorScheme.onSurface,
+                  duration: const Duration(seconds: 1),
                 ),
               );
             },
