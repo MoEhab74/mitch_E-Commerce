@@ -5,6 +5,7 @@ import 'package:minimal_e_commerce/components/my_text_form_field.dart';
 import 'package:minimal_e_commerce/cubits/auth/auth_cubit.dart';
 import 'package:minimal_e_commerce/cubits/auth/auth_states.dart';
 import 'package:minimal_e_commerce/helper/snack_bar_message.dart';
+import 'package:minimal_e_commerce/pages/shop_page.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -65,6 +66,8 @@ class _LoginFormState extends State<LoginForm> {
                   context,
                   message: 'Welcome ${state.user.username}',
                 );
+                // Navigate to the home page
+                Navigator.of(context).pushNamed(ShopPage.routeName);
               } else if (state is AuthError) {
                 showSnackBar(context, message: state.message);
               }
