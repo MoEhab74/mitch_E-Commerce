@@ -42,6 +42,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthSuccess(user: userModel));
     return userModel;
   }
+
   // logout user method
   Future<void> logoutUser() async {
     var box = Hive.box('auth');
@@ -60,14 +61,17 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   // checkUserLoggedIn method
-  bool checkUserLoggedIn() {
+  void checkUserLoggedIn() {
     var box = Hive.box('auth');
     final accessToken = box.get('accessToken');
+
     if (accessToken != null) {
-      emit(AuthSuccess(user: getCurrentUser()!));
-      return true;
+      final user = getCurrentUser();
+      if (user != null) {
+        emit(AuthSuccess(user: user));
+        return;
+      }
     }
     emit(AuthInitial());
-    return false;
   }
 }

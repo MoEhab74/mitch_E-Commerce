@@ -1,8 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/cubits/auth/auth_cubit.dart';
 import 'package:minimal_e_commerce/cubits/auth/auth_states.dart';
-import 'package:minimal_e_commerce/helper/snack_bar_message.dart';
 import 'package:minimal_e_commerce/pages/onboarding_page.dart';
 import 'package:minimal_e_commerce/pages/shop_page.dart';
 
@@ -14,6 +15,7 @@ class UserAuthStatePage extends StatefulWidget {
 }
 
 class _UserAuthStatePageState extends State<UserAuthStatePage> {
+  bool? isUserLoggedIn;
   @override
   void initState() {
     super.initState();
@@ -24,20 +26,18 @@ class _UserAuthStatePageState extends State<UserAuthStatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<AuthCubit, AuthState>(
-        listener: (context, state) {
-          if (state is AuthSuccess) {
-            showSnackBar(
-              context,
-              message: 'Welcome back ${state.user.firstName}',
-            );
-            Navigator.pushNamed(context, ShopPage.routeName);
-          } else {
-            Navigator.pushNamed(context, OnBoardingPage.routeName);
-          }
-        },
+      body: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
-          return Center(child: CircularProgressIndicator());
+          if (state is AuthLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is AuthSuccess) {
+            log('Welcome back!');
+            return const ShopPage();
+          } else if (state is AuthInitial) {
+            return const OnBoardingPage();
+          } else {
+            return const Center(child: Text("Unexpected state"));
+          }
         },
       ),
     );
