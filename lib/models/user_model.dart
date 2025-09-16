@@ -34,4 +34,17 @@ class UserModel {
       refreshToken: json['refreshToken'],
     );
   }
+
+  // I don't know yet how to use toJson
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'username': username,
+    'email': email,
+    'firstName': firstName,
+    'lastName': lastName,
+    'gender': gender,
+    'image': image,
+    'accessToken': accessToken,
+    'refreshToken': refreshToken,
+  };
 }

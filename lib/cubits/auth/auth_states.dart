@@ -1,3 +1,5 @@
+import 'package:minimal_e_commerce/models/user_model.dart';
+
 abstract class AuthState {
   const AuthState();
 }
@@ -11,16 +13,10 @@ class AuthLoading extends AuthState {
 }
 
 class AuthSuccess extends AuthState {
-  final String uid;
-  final String userName;
-  final String accessToken;
-  final String refreshToken;
+  final UserModel user;
 
   const AuthSuccess({
-    required this.uid,
-    required this.userName,
-    required this.accessToken,
-    required this.refreshToken,
+    required this.user
   });
 }
 
