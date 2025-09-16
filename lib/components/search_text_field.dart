@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
+import 'package:minimal_e_commerce/cubits/shop/shop_cubit.dart';
 
 class SearchTextField extends StatefulWidget {
   const SearchTextField({super.key});

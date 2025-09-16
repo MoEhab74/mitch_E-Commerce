@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minimal_e_commerce/cubits/categories_cubit/categories_state.dart';
+import 'package:minimal_e_commerce/cubits/categories/categories_state.dart';
 import 'package:minimal_e_commerce/helper/api.dart';
 
 class CategoriesCubit extends Cubit<CategoriesState> {

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minimal_e_commerce/cubits/shop_cubit/shop_states.dart';
+import 'package:minimal_e_commerce/cubits/shop/shop_states.dart';
 import 'package:minimal_e_commerce/helper/api.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 

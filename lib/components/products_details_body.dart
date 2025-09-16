@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/components/my_elevated_button.dart';
-import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
+import 'package:minimal_e_commerce/cubits/cart/cart_cubit.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
 class ProductsDetailsBody extends StatelessWidget {

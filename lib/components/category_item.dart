@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minimal_e_commerce/cubits/categories_cubit/categories_cubit.dart';
-import 'package:minimal_e_commerce/cubits/categories_cubit/categories_state.dart';
-import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
+import 'package:minimal_e_commerce/cubits/categories/categories_cubit.dart';
+import 'package:minimal_e_commerce/cubits/categories/categories_state.dart';
+import 'package:minimal_e_commerce/cubits/shop/shop_cubit.dart';
 import 'package:minimal_e_commerce/helper/categories_error_message.dart';
 
 class CategoryItems extends StatefulWidget {

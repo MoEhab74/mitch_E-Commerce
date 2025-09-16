@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/components/products_builder.dart';
-import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
-import 'package:minimal_e_commerce/cubits/cart_cubit/cart_state.dart';
+import 'package:minimal_e_commerce/cubits/cart/cart_cubit.dart';
+import 'package:minimal_e_commerce/cubits/cart/cart_state.dart';
 import 'package:minimal_e_commerce/helper/empty_state_message.dart';
 import 'package:minimal_e_commerce/helper/show_hint_dialog.dart';
 

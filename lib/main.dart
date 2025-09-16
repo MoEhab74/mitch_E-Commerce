@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minimal_e_commerce/cubits/cart_cubit/cart_cubit.dart';
-import 'package:minimal_e_commerce/cubits/shop_cubit/shop_cubit.dart';
+import 'package:minimal_e_commerce/cubits/cart/cart_cubit.dart';
+import 'package:minimal_e_commerce/cubits/shop/shop_cubit.dart';
 import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
 import 'package:minimal_e_commerce/pages/onboarding_page.dart';
