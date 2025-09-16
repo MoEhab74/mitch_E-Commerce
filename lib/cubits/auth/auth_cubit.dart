@@ -32,10 +32,24 @@ class AuthCubit extends Cubit<AuthState> {
     await box.put('accessToken', accessToken);
     await box.put('refreshToken', refreshToken);
     await box.put('userId', id);
-    log('User access token and id stored successfully in the box');
+    // Store the whole user to use any data from it whenever you need
+    await box.put('user', jsonData);
+    log(
+      'User access token, refresh token, id stored successfully and whole user data stored in the box',
+    );
     // Convert the JSON data to UserModel object
     UserModel userModel = UserModel.fromJson(jsonData);
     emit(AuthSuccess(user: userModel));
     return userModel;
+  }
+
+  // Helper to get current user from Hive
+  UserModel? getCurrentUser() {
+    var box = Hive.box('auth');
+    final userJson = box.get('user');
+    if (userJson != null) {
+      return UserModel.fromJson(Map<String, dynamic>.from(userJson));
+    }
+    return null;
   }
 }
