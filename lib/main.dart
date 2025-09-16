@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:minimal_e_commerce/cubits/auth/auth_cubit.dart';
 import 'package:minimal_e_commerce/cubits/cart/cart_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop/shop_cubit.dart';
 import 'package:minimal_e_commerce/pages/cart_page.dart';
@@ -10,6 +11,7 @@ import 'package:minimal_e_commerce/pages/favourites_page.dart';
 import 'package:minimal_e_commerce/pages/login_page.dart';
 import 'package:minimal_e_commerce/pages/onboarding_page.dart';
 import 'package:minimal_e_commerce/pages/shop_page.dart';
+import 'package:minimal_e_commerce/pages/user_auth_state_page.dart';
 import 'package:minimal_e_commerce/theme/dark_theme.dart';
 import 'package:minimal_e_commerce/theme/light_theme.dart';
 import 'package:minimal_e_commerce/theme/theme_provider.dart';
@@ -40,6 +42,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => CartCubit()),
         BlocProvider(create: (context) => ShopCubit()),
+        BlocProvider(create: (context) => AuthCubit()),
       ],
       child: MaterialApp(
         routes: {
@@ -54,7 +57,7 @@ class MyApp extends StatelessWidget {
         themeMode: context.watch<ThemeProvider>().themeMode,
         debugShowCheckedModeBanner: false,
         title: 'E-Commerce',
-        home: OnBoardingPage(),
+        home: UserAuthStatePage(),
       ),
     );
   }

@@ -64,8 +64,10 @@ class AuthCubit extends Cubit<AuthState> {
     var box = Hive.box('auth');
     final accessToken = box.get('accessToken');
     if (accessToken != null) {
+      emit(AuthSuccess(user: getCurrentUser()!));
       return true;
     }
+    emit(AuthInitial());
     return false;
   }
 }
