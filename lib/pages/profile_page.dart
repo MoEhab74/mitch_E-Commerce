@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minimal_e_commerce/components/profile_item.dart';
 import 'package:minimal_e_commerce/cubits/auth/auth_cubit.dart';
+import 'package:minimal_e_commerce/helper/show_hint_dialog.dart';
 import 'package:minimal_e_commerce/models/user_model.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -16,14 +18,6 @@ class ProfilePage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         foregroundColor: Theme.of(context).colorScheme.secondary,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout_outlined),
-            onPressed: () {
-              // Trigger logout method here
-            },
-          ),
-        ],
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: SingleChildScrollView(
@@ -33,12 +27,14 @@ class ProfilePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 14),
-              ClipOval(
-                child: Image.network(
-                  currentUser.image,
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.cover,
+              Center(
+                child: ClipOval(
+                  child: Image.network(
+                    currentUser.image,
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(height: 12),
@@ -62,7 +58,21 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 32),
-              
+              ProfileItem(text: currentUser.username, icon: Icons.person),
+              const SizedBox(height: 12),
+              ProfileItem(
+                text: 'Logout',
+                icon: Icons.logout_outlined,
+                onTap: () {
+                  showHintDialog(
+                    context,
+                    title: 'Log out',
+                    content: 'Are you sure you want to logout?',
+                    buttonText: 'log out',
+                    onPressedAction: () {},
+                  );
+                },
+              ),
             ],
           ),
         ),
