@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:minimal_e_commerce/cubits/cart/cart_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop/shop_cubit.dart';
+import 'package:minimal_e_commerce/models/user_model.dart';
 import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
 import 'package:minimal_e_commerce/pages/login_page.dart';
@@ -12,7 +16,15 @@ import 'package:minimal_e_commerce/theme/light_theme.dart';
 import 'package:minimal_e_commerce/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  log('Hive initialized successfully');
+  // Open auth box
+  var authBox = await Hive.openBox<UserModel>('auth');
+  final accessToken = authBox.get('accessToken');
+  final id = authBox.get('id');
+  log('User access token and id fetched successfully from the box');
   runApp(
     ChangeNotifierProvider(
       create: (context) => ThemeProvider(),

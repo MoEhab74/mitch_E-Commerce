@@ -59,6 +59,8 @@ class _LoginFormState extends State<LoginForm> {
           BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
               if (state is AuthSuccess) {
+                // Close the keyboard
+                FocusScope.of(context).unfocus();
                 showSnackBar(
                   context,
                   message: 'Welcome ${state.user.username}',
@@ -69,7 +71,7 @@ class _LoginFormState extends State<LoginForm> {
             },
             builder: (context, state) {
               if (state is AuthLoading) {
-                return const CircularProgressIndicator();
+                return const AppButton(title: 'Loading...', onPressed: null);
               }
               return AppButton(
                 title: 'Login',
