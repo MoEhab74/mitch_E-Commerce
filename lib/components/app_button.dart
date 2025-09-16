@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
-  const AppButton({super.key, required this.title, required this.snackBarMessage, this.onPressed});
+  const AppButton({super.key, required this.title, this.snackBarMessage, this.onPressed});
   final String title;
-  final String snackBarMessage;
+  final String? snackBarMessage;
   final  void Function()? onPressed;
   
 
@@ -12,7 +12,7 @@ class AppButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SizedBox(
-        width: 100,
+        width: 200,
         height: 55,
         child: ElevatedButton.icon(
           style: ElevatedButton.styleFrom(

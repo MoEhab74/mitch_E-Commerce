@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/components/app_button.dart';
+import 'package:minimal_e_commerce/components/login_form.dart';
 import 'package:minimal_e_commerce/components/my_text_form_field.dart';
 import 'package:minimal_e_commerce/cubits/auth/auth_cubit.dart';
 import 'package:minimal_e_commerce/helper/snack_bar_message.dart';
@@ -35,33 +36,7 @@ class LoginPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
                 color: Theme.of(context).colorScheme.primary,
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // userName textFormField
-                  MyTextFormField(labelText: 'User name', icon: Icons.person),
-
-                  // Password textFormField
-                  MyTextFormField(
-                    labelText: 'Password',
-                    icon: Icons.visibility_off,
-                    obscureText: true,
-                  ),
-
-                  // Login button
-                  AppButton(
-                    title: 'Login',
-                    snackBarMessage: 'Logged in successfully',
-                    onPressed: () {
-                      // Trigger cubit method
-                      // context.read<AuthCubit>().loginUser();
-                      // show snackbar
-                      showSnackBar(context,
-                          message: 'Logged in successfully');
-                    },
-                  ),
-                ],
-              ),
+              child: LoginForm(),
             ),
           ),
         ),
@@ -69,3 +44,4 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
