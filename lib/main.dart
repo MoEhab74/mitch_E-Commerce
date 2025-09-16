@@ -4,6 +4,7 @@ import 'package:minimal_e_commerce/cubits/cart/cart_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop/shop_cubit.dart';
 import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
+import 'package:minimal_e_commerce/pages/login_page.dart';
 import 'package:minimal_e_commerce/pages/onboarding_page.dart';
 import 'package:minimal_e_commerce/pages/shop_page.dart';
 import 'package:minimal_e_commerce/theme/dark_theme.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
           ShopPage.routeName: (context) => ShopPage(),
           CartPage.routeName: (context) => CartPage(),
           FavouritesPage.routeName: (context) => FavouritesPage(),
+          LoginPage.routeName: (context) => LoginPage(),
         },
         theme: lightMode,
         darkTheme: darkMode,
