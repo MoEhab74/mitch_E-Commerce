@@ -42,6 +42,12 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthSuccess(user: userModel));
     return userModel;
   }
+  // logout user method
+  Future<void> logoutUser() async {
+    var box = Hive.box('auth');
+    await box.clear();
+    emit(AuthInitial());
+  }
 
   // Helper to get current user from Hive
   UserModel? getCurrentUser() {
@@ -51,5 +57,15 @@ class AuthCubit extends Cubit<AuthState> {
       return UserModel.fromJson(Map<String, dynamic>.from(userJson));
     }
     return null;
+  }
+
+  // checkUserLoggedIn method
+  bool checkUserLoggedIn() {
+    var box = Hive.box('auth');
+    final accessToken = box.get('accessToken');
+    if (accessToken != null) {
+      return true;
+    }
+    return false;
   }
 }
