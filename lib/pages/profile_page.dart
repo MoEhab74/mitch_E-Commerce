@@ -61,6 +61,11 @@ class ProfilePage extends StatelessWidget {
               ProfileItem(text: currentUser.username, icon: Icons.person),
               const SizedBox(height: 12),
               ProfileItem(
+                text: currentUser.gender!,
+                icon: currentUser.gender == 'male' ? Icons.male : Icons.female,
+              ),
+              const SizedBox(height: 12),
+              ProfileItem(
                 text: 'Logout',
                 icon: Icons.logout_outlined,
                 onTap: () {
@@ -69,7 +74,10 @@ class ProfilePage extends StatelessWidget {
                     title: 'Log out',
                     content: 'Are you sure you want to logout?',
                     buttonText: 'log out',
-                    onPressedAction: () {},
+                    onPressedAction: () {
+                      // Trigger the logout from the AuthCubit
+                      context.read<AuthCubit>().logoutUser();
+                    },
                   );
                 },
               ),

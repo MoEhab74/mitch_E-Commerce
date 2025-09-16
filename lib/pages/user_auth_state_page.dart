@@ -25,21 +25,20 @@ class _UserAuthStatePageState extends State<UserAuthStatePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<AuthCubit, AuthState>(
-        builder: (context, state) {
-          if (state is AuthLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is AuthSuccess) {
-            log('Welcome back!');
-            return const ShopPage();
-          } else if (state is AuthInitial) {
-            return const OnBoardingPage();
-          } else {
-            return const Center(child: Text("Unexpected state"));
-          }
-        },
-      ),
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        if (state is AuthLoading) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is AuthSuccess) {
+          log('Welcome back!');
+          return const ShopPage();
+        } else if (state is AuthInitial) {
+          log('Logged out!');
+          return const OnBoardingPage();
+        } else {
+          return const Center(child: Text("Unexpected state"));
+        }
+      },
     );
   }
 }

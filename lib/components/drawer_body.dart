@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:minimal_e_commerce/components/my_list_tile.dart';
-import 'package:minimal_e_commerce/pages/onboarding_page.dart';
 import 'package:minimal_e_commerce/pages/profile_page.dart';
 import 'package:minimal_e_commerce/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -20,16 +19,6 @@ class DrawerBody extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 32),
-        MyListTile(
-          icon: Icons.home,
-          title: 'Home',
-          onTap: () {
-            // Close the drawer first
-            Navigator.of(context).pop();
-            // Then navigate to the home page
-            Navigator.of(context).pushNamed(OnBoardingPage.routeName);
-          },
-        ),
         MyListTile(
           icon: Icons.shopify_sharp,
           title: 'Shop',
