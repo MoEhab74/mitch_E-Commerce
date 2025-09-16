@@ -7,11 +7,12 @@ class MyListTile extends StatelessWidget {
   final VoidCallback? onTap;
   final IconData? icon;
   final String title;
+  
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16),
+      padding: const EdgeInsets.only(left: 8),
       child: ListTile(
         leading: Icon(
           icon,

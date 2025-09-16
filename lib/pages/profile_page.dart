@@ -30,41 +30,43 @@ class ProfilePage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 14),
-            ClipOval(
-              child: Image.network(
-                currentUser.image,
-                width: 100,
-                height: 100,
-                fit: BoxFit.cover,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 14),
+              ClipOval(
+                child: Image.network(
+                  currentUser.image,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              '${currentUser.firstName} ${currentUser.lastName}',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w700,
-                color: Theme.of(context).colorScheme.onSurface,
+              const SizedBox(height: 12),
+              Text(
+                '${currentUser.firstName} ${currentUser.lastName}',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                  color: Theme.of(context).colorScheme.primary,
+                  fontFamily: 'Lora',
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              currentUser.email,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              const SizedBox(height: 8),
+              Text(
+                currentUser.email,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                  fontFamily: 'Lora',
+                ),
               ),
-            ),
-            const SizedBox(height: 14),
-            
-          ],
+              const SizedBox(height: 32),
+              
+            ],
           ),
         ),
-      )
+      ),
     );
   }
 }

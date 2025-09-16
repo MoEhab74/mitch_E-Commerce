@@ -12,6 +12,7 @@ import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
 import 'package:minimal_e_commerce/pages/login_page.dart';
 import 'package:minimal_e_commerce/pages/onboarding_page.dart';
+import 'package:minimal_e_commerce/pages/profile_page.dart';
 import 'package:minimal_e_commerce/pages/shop_page.dart';
 import 'package:minimal_e_commerce/pages/user_auth_state_page.dart';
 import 'package:minimal_e_commerce/theme/dark_theme.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
           CartPage.routeName: (context) => CartPage(),
           FavouritesPage.routeName: (context) => FavouritesPage(),
           LoginPage.routeName: (context) => LoginPage(),
+          ProfilePage.routeName: (context) => ProfilePage(),
         },
         theme: lightMode,
         darkTheme: darkMode,

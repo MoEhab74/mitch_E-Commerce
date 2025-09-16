@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minimal_e_commerce/components/my_list_tile.dart';
 import 'package:minimal_e_commerce/pages/onboarding_page.dart';
+import 'package:minimal_e_commerce/pages/profile_page.dart';
 import 'package:minimal_e_commerce/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -58,6 +59,7 @@ class DrawerBody extends StatelessWidget {
             // Close the drawer
             Navigator.of(context).pop();
             // Navigate to the profile page
+            Navigator.of(context).pushNamed(ProfilePage.routeName);
           },
         ),        
       ],
