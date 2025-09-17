@@ -9,12 +9,12 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        title: const Text('Login'),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Theme.of(context).colorScheme.secondary,
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Login'),
+      //   centerTitle: true,
+      //   backgroundColor: Colors.transparent,
+      //   foregroundColor: Theme.of(context).colorScheme.secondary,
+      // ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

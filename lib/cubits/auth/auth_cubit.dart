@@ -62,6 +62,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   // checkUserLoggedIn method
   void checkUserLoggedIn() {
+    emit(AuthLoading());
     var box = Hive.box('auth');
     final accessToken = box.get('accessToken');
 

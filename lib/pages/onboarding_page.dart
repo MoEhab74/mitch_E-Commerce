@@ -46,13 +46,15 @@ class OnBoardingPage extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             MyButtom(
-              onTap: () => Navigator.pushNamed(context, LoginPage.routeName),
-            )
+              onTap: () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+                (route) => false,
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-

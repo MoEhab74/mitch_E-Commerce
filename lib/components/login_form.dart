@@ -18,6 +18,7 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _obSecureText = true;
 
   @override
   void dispose() {
@@ -31,65 +32,85 @@ class _LoginFormState extends State<LoginForm> {
     return Form(
       key: _formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          MyTextFormField(
-            controller: _usernameController,
-            labelText: 'User name',
-            icon: Icons.person,
-            validator: (value) => value == null || value.trim().isEmpty
-                ? 'User name is required'
-                : null,
-          ),
-          MyTextFormField(
-            controller: _passwordController,
-            labelText: 'Password',
-            icon: Icons.lock,
-            obscureText: true,
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-                return 'Password is required';
-              } else if (value.length < 6) {
-                return 'Password must be at least 6 characters';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 20),
-          BlocConsumer<AuthCubit, AuthState>(
-            listener: (context, state) {
-              if (state is AuthSuccess) {
-                // Close the keyboard
-                FocusScope.of(context).unfocus();
-                showSnackBar(
-                  context,
-                  message: 'Welcome ${state.user.username}',
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Login',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Lora',
+                color: Theme.of(context).colorScheme.secondary,
+              ),
+            ),
+            const SizedBox(height: 60),
+            MyTextFormField(
+              controller: _usernameController,
+              labelText: 'User name',
+              icon: Icons.person,
+              onPressed: () {},
+              validator: (value) => value == null || value.trim().isEmpty
+                  ? 'User name is required'
+                  : null,
+            ),
+            MyTextFormField(
+              controller: _passwordController,
+              labelText: 'Password',
+              // Determine the icon based on password visibility
+              icon: _obSecureText ? Icons.visibility : Icons.visibility_off,
+              // Toggle password visibility
+              onPressed: () {
+                setState(() {
+                  _obSecureText = !_obSecureText;
+                });
+              },
+              obscureText: _obSecureText,
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'Password is required';
+                } else if (value.length < 6) {
+                  return 'Password must be at least 6 characters';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 20),
+            BlocConsumer<AuthCubit, AuthState>(
+              listener: (context, state) {
+                if (state is AuthSuccess) {
+                  // Close the keyboard
+                  FocusScope.of(context).unfocus();
+                  showSnackBar(
+                    context,
+                    message: 'Welcome ${state.user.username}',
+                  );
+                  // Navigate to the home page
+                  Navigator.of(context).pushNamed(ShopPage.routeName);
+                } else if (state is AuthError) {
+                  showSnackBar(context, message: state.message);
+                }
+              },
+              builder: (context, state) {
+                if (state is AuthLoading) {
+                  return const AppButton(title: 'Loading...', onPressed: null);
+                }
+                return AppButton(
+                  title: 'Login',
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      context.read<AuthCubit>().loginUser(
+                        username: _usernameController.text,
+                        password: _passwordController.text,
+                      );
+                    }
+                  },
                 );
-                // Navigate to the home page
-                Navigator.of(context).pushNamed(ShopPage.routeName);
-              } else if (state is AuthError) {
-                showSnackBar(context, message: state.message);
-              }
-            },
-            builder: (context, state) {
-              if (state is AuthLoading) {
-                return const AppButton(title: 'Loading...', onPressed: null);
-              }
-              return AppButton(
-                title: 'Login',
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    context.read<AuthCubit>().loginUser(
-                      username: _usernameController.text,
-                      password: _passwordController.text,
-                    );
-                  }
-                },
-              );
-            },
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
