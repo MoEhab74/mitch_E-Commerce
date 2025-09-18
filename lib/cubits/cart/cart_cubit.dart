@@ -79,17 +79,20 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
+  // open favorites box
+  final favoriteItemsBox = Hive.box<ProductModel>('favoriteItems');
   // Add to favorites
   void toggleFavorite(ProductModel product) {
     if (_favorites.contains(product)) {
       product.isFavorite = false;
       _favorites.remove(product);
-      log('${product.title} removed from favorites');
+      favoriteItemsBox.delete(product.id);
+      log('${product.title} removed from favorites and deleted from Hive');
     } else {
       product.isFavorite = true;
       _favorites.add(product);
-      log('${product.title} added to favorites');
-      print(favorites);
+      favoriteItemsBox.put(product.id, product);
+      log('${product.title} added to favorites and stored in Hive');
     }
     emit(FavoritesUpdatedSuccessfully(favorites));
   }

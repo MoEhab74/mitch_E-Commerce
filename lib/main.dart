@@ -35,6 +35,7 @@ void main() async {
   Hive.registerAdapter(CartModelHiveAdapter());
   Hive.registerAdapter(ProductModelAdapter());
   var cartItemsBox = await Hive.openBox<CartModelHive>('cartItems');
+  var favoritesBox = await Hive.openBox<ProductModel>('favoriteItems');
   log('Hive boxes opened successfully');
   // log('User access token and id fetched successfully from the box');
   runApp(
