@@ -21,7 +21,7 @@ class CartCubit extends Cubit<CartState> {
       state is CartUpdatedSuccessfully || state is FavoritesUpdatedSuccessfully;
 
   // Add product to cart
-  void addToCart(ProductModel product) {
+  void addToCartItems(ProductModel product) {
     _cartItems.add(product);
     log('${product.title} added to cart');
     print(_cartItems.length);

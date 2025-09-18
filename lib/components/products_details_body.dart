@@ -106,7 +106,7 @@ class ProductsDetailsBody extends StatelessWidget {
             lableText: 'Add to cart',
             icon: Icons.add_shopping_cart,
             snackBarMessage: 'added to cart',
-            cubitFunction: context.read<CartCubit>().addToCart,
+            cubitFunction: context.read<CartCubit>().addToCartItems,
           ),
         ],
       ),

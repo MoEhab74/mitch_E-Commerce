@@ -27,7 +27,7 @@ class FavouritesPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: ProductsBuilder(
               products: favorites,
-              cubitFunction: context.read<CartCubit>().addToCart,
+              cubitFunction: context.read<CartCubit>().addToCartItems,
               snackBarMessage: "Added to cart",
             ),
           );
