@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:minimal_e_commerce/cubits/auth/auth_cubit.dart';
 import 'package:minimal_e_commerce/cubits/cart/cart_cubit.dart';
+import 'package:minimal_e_commerce/cubits/favorites/favorites_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop/shop_cubit.dart';
 import 'package:minimal_e_commerce/models/cart_item.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
@@ -34,8 +35,8 @@ void main() async {
   // Register the Adapters first
   Hive.registerAdapter(CartModelHiveAdapter());
   Hive.registerAdapter(ProductModelAdapter());
-  var cartItemsBox = await Hive.openBox<CartModelHive>('cartItems');
-  var favoritesBox = await Hive.openBox<ProductModel>('favoriteItems');
+  await Hive.openBox<CartModelHive>('cartItems');
+  await Hive.openBox<ProductModel>('favoriteItems');
   log('Hive boxes opened successfully');
   // log('User access token and id fetched successfully from the box');
   runApp(
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => CartCubit()),
         BlocProvider(create: (context) => ShopCubit()),
         BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(create: (context) => FavoritesCubit()),
       ],
       child: MaterialApp(
         routes: {

@@ -46,7 +46,7 @@ class CartPage extends StatelessWidget {
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
           // final cartCubit = context.read<CartCubit>();  ===> // Solution without Extension on CartState
-          if (state.isCartOrFavoritesUpdatedSuccessfully) {
+          if (state is CartUpdatedSuccessfully) {
             final products = context.read<CartCubit>().cartItems;
             if (products.isEmpty) {
               return const EmptyStateMessage(

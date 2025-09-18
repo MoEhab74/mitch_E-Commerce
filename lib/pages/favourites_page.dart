@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/components/products_builder.dart';
 import 'package:minimal_e_commerce/cubits/cart/cart_cubit.dart';
-import 'package:minimal_e_commerce/cubits/cart/cart_state.dart';
+import 'package:minimal_e_commerce/cubits/favorites/favorites_cubit.dart';
+import 'package:minimal_e_commerce/cubits/favorites/favorites_states.dart';
 import 'package:minimal_e_commerce/helper/empty_state_message.dart';
 
 class FavouritesPage extends StatelessWidget {
@@ -12,10 +13,10 @@ class FavouritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<CartCubit, CartState>(
+      body: BlocBuilder<FavoritesCubit, FavoritesStates>(
         builder: (context, state) {
           // if (state.isCartOrFavoritesUpdatedSuccessfully) {
-          final favorites = context.read<CartCubit>().favorites;
+          final favorites = context.read<FavoritesCubit>().favorites;
 
           if (favorites.isEmpty) {
             return EmptyStateMessage(

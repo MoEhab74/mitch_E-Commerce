@@ -7,16 +7,25 @@ import 'package:minimal_e_commerce/models/cart_item.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
 class CartCubit extends Cubit<CartState> {
-  CartCubit() : super(CartCubitInitial());
+  CartCubit() : super(CartCubitInitial()) {
+    _loadCartItems();
+  }
+  
+  
 
+  final cartBox = Hive.box<CartModelHive>('cartItems');
+  void _loadCartItems() {
+    _cartItemsHive.clear();
+    _cartItemsHive.addAll(cartBox.values);
+    _cartItems.addAll(_cartItemsHive.map((e) => e.product));
+    emit(CartUpdatedSuccessfully(List.unmodifiable(_cartItems)));
+  }
 
-  // Favorites list
-  final List<ProductModel> _favorites = [];
-  List<ProductModel> get favorites => List.unmodifiable(_favorites);
+ 
 
   // ShouldRebuildCart to determine if cart should be rebuilt
-  bool get shouldRebuildCart =>
-      state is CartUpdatedSuccessfully || state is FavoritesUpdatedSuccessfully;
+  // bool get shouldRebuildCart =>
+  //     state is CartUpdatedSuccessfully || state is FavoritesUpdatedSuccessfully;
 
   // List of user cart items to be displayed in the cart page ===> this will rebuild the cart page when items are added or removed
   final List<ProductModel> _cartItems = [];
@@ -26,7 +35,7 @@ class CartCubit extends Cubit<CartState> {
   List<CartModelHive> get getCartItemsHive => _cartItemsHive;
 
   // Open the cart box
-  final cartBox = Hive.box<CartModelHive>('cartItems');
+  
 
   // Add product to cart
   void addToCartItems(ProductModel product) async {
@@ -80,20 +89,6 @@ class CartCubit extends Cubit<CartState> {
   }
 
   // open favorites box
-  final favoriteItemsBox = Hive.box<ProductModel>('favoriteItems');
-  // Add to favorites
-  void toggleFavorite(ProductModel product) {
-    if (_favorites.contains(product)) {
-      product.isFavorite = false;
-      _favorites.remove(product);
-      favoriteItemsBox.delete(product.id);
-      log('${product.title} removed from favorites and deleted from Hive');
-    } else {
-      product.isFavorite = true;
-      _favorites.add(product);
-      favoriteItemsBox.put(product.id, product);
-      log('${product.title} added to favorites and stored in Hive');
-    }
-    emit(FavoritesUpdatedSuccessfully(favorites));
-  }
+  
+  
 }

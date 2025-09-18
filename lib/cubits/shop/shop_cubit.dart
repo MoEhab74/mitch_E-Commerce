@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:minimal_e_commerce/cubits/shop/shop_states.dart';
 import 'package:minimal_e_commerce/helper/api.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
@@ -31,7 +32,9 @@ class ShopCubit extends Cubit<ShopState> {
       List<dynamic> productsJson = jsonData['products'];
       // Convert the JSON data to ProductModel objects
       // each element in jsonData is a Map so we can model it to ProductModel
-      _shopProducts = productsJson.map((product) => ProductModel.fromJson(product)).toList();
+      _shopProducts = productsJson
+          .map((product) => ProductModel.fromJson(product))
+          .toList();
       lastQuery = query;
       emit(ShopSuccess(_shopProducts));
       log('Search from the API done successfully');
@@ -56,6 +59,14 @@ class ShopCubit extends Cubit<ShopState> {
       _shopProducts = productsJson
           .map((product) => ProductModel.fromJson(product))
           .toList();
+
+      // Link the shop products to Favorites products to show the correct favorite icon state
+      final favoriteBox = Hive.box<ProductModel>('favoriteItems');
+      for (var product in _shopProducts) {
+        if (favoriteBox.containsKey(product.id)) {
+          product.isFavorite = true;
+        }
+      }
 
       lastQuery = null;
       emit(ShopSuccess(_shopProducts));

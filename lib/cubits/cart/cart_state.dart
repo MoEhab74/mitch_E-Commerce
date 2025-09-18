@@ -1,17 +1,20 @@
 import 'package:minimal_e_commerce/models/product_model.dart';
 
-class CartState {}
+class CartState {
+  final List<ProductModel> products;
+  CartState({this.products = const []});
+}
 
-final class CartCubitInitial extends CartState {}
+final class CartCubitInitial extends CartState {
+  CartCubitInitial() : super(products: []);
+}
 
 final class CartUpdatedSuccessfully extends CartState {
-  final List<ProductModel> products;
-  CartUpdatedSuccessfully(this.products);
+  CartUpdatedSuccessfully(List<ProductModel> products) : super(products: products);
 }
 
 final class FavoritesUpdatedSuccessfully extends CartState {
-  final List<ProductModel> products;
-  FavoritesUpdatedSuccessfully(this.products);
+  FavoritesUpdatedSuccessfully(List<ProductModel> products) : super(products: products);
 }
 
 // An Extension for CartCubitState

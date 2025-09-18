@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minimal_e_commerce/cubits/cart/cart_cubit.dart';
-import 'package:minimal_e_commerce/cubits/cart/cart_state.dart';
+import 'package:minimal_e_commerce/cubits/favorites/favorites_cubit.dart';
+import 'package:minimal_e_commerce/cubits/favorites/favorites_states.dart';
 import 'package:minimal_e_commerce/models/product_model.dart';
 
 class FavoriteIconBuilder extends StatelessWidget {
@@ -14,7 +14,7 @@ class FavoriteIconBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartCubit, CartState>(
+    return BlocBuilder<FavoritesCubit, FavoritesStates>(
       builder: (context, state) {
         return IconButton(
           padding: EdgeInsets.zero,
@@ -28,7 +28,7 @@ class FavoriteIconBuilder extends StatelessWidget {
           iconSize: 28,
           onPressed: () {
             // Add to favorites logic ===> trigger the method from the cubit
-            context.read<CartCubit>().toggleFavorite(
+            context.read<FavoritesCubit>().toggleFavorite(
               product,
             );
           },
