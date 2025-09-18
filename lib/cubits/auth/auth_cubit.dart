@@ -47,6 +47,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> logoutUser() async {
     var box = Hive.box('auth');
     await box.clear();
+    log('User logged out successfully');
     emit(AuthInitial());
   }
 

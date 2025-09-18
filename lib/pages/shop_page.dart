@@ -5,7 +5,6 @@ import 'package:minimal_e_commerce/components/search_text_field.dart';
 import 'package:minimal_e_commerce/components/shop_page_products.dart';
 import 'package:minimal_e_commerce/cubits/categories/categories_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop/shop_cubit.dart';
-import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
 
 class ShopPage extends StatefulWidget {
@@ -80,15 +79,11 @@ class _ShopPageState extends State<ShopPage> {
               icon: Icon(Icons.favorite),
               label: 'Favorites',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.add_shopping_cart),
-              label: 'Cart',
-            ),
           ],
         ),
         body: IndexedStack(
           index: selectedIndex,
-          children: [ShopPageProducts(), FavouritesPage(), CartPage()],
+          children: [ShopPageProducts(), FavouritesPage()],
         ),
       ),
     );

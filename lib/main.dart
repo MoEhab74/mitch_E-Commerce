@@ -8,6 +8,9 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:minimal_e_commerce/cubits/auth/auth_cubit.dart';
 import 'package:minimal_e_commerce/cubits/cart/cart_cubit.dart';
 import 'package:minimal_e_commerce/cubits/shop/shop_cubit.dart';
+import 'package:minimal_e_commerce/models/cart_item.dart';
+import 'package:minimal_e_commerce/models/product_model.dart';
+import 'package:minimal_e_commerce/models/user_model.dart';
 import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/favourites_page.dart';
 import 'package:minimal_e_commerce/pages/login_page.dart';
@@ -24,8 +27,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   log('Hive initialized successfully');
+  //Register the UserModel Adapter first
+  Hive.registerAdapter(UserModelAdapter());
   // Open auth box
   var authBox = await Hive.openBox('auth');
+  // Register the Adapters first
+  Hive.registerAdapter(CartModelHiveAdapter());
+  Hive.registerAdapter(ProductModelAdapter());
+  var cartItemsBox = await Hive.openBox<CartModelHive>('cartItems');
+  log('Hive boxes opened successfully');
   // log('User access token and id fetched successfully from the box');
   runApp(
     ChangeNotifierProvider(

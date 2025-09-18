@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 part 'product_model.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 2)
 class ProductModel extends HiveObject {
   @HiveField(0)
   final String id;
@@ -17,7 +17,7 @@ class ProductModel extends HiveObject {
   final double rating;
   @HiveField(6)
   final List<String> images;
-  @HiveField(7) 
+  @HiveField(7)
   final List<String> tags;
   @HiveField(8)
   bool isFavorite = false;

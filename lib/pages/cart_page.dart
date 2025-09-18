@@ -13,29 +13,35 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Clear the cart
-          // Show hint dialog first
-          // check if cart is empty
-          if (context.read<CartCubit>().cartItems.isEmpty) {
-            showHintDialog(
-              context,
-              title: "Cart is empty",
-              content: "Your cart is empty",
-              buttonText: "OK",
-            );
-          } else {
-            showHintDialog(
-              context,
-              title: "Clear Cart",
-              content: "Are you sure you want to clear the cart?",
-              buttonText: "Clear",
-              onPressedAction: () => context.read<CartCubit>().clearCart(),
-            );
-          }
-        },
-        child: const Icon(Icons.delete_sweep_outlined, size: 32),
+      appBar: AppBar(
+        title: const Text('My Cart'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              // Clear the cart
+              // Show hint dialog first
+              // check if cart is empty
+              if (context.read<CartCubit>().cartItems.isEmpty) {
+                showHintDialog(
+                  context,
+                  title: "Cart is empty",
+                  content: "Your cart is empty",
+                  buttonText: "OK",
+                );
+              } else {
+                showHintDialog(
+                  context,
+                  title: "Clear Cart",
+                  content: "Are you sure you want to clear the cart?",
+                  buttonText: "Clear",
+                  onPressedAction: () => context.read<CartCubit>().clearCart(),
+                );
+              }
+            },
+            icon: const Icon(Icons.delete_sweep_outlined, size: 28),
+          ),
+        ],
       ),
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
@@ -48,14 +54,67 @@ class CartPage extends StatelessWidget {
                 icon: Icons.shopping_cart_outlined,
               );
             }
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: ProductsBuilder(
-                products: products,
-                cubitFunction: context.read<CartCubit>().removeFromCart,
-                icon: Icons.remove_shopping_cart,
-                snackBarMessage: "removed from cart",
-              ),
+            return Column(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: ProductsBuilder(
+                      products: products,
+                      cubitFunction: context.read<CartCubit>().removeFromCart,
+                      icon: Icons.remove_shopping_cart,
+                      snackBarMessage: "removed from cart",
+                    ),
+                  ),
+                ),
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Total: \$${context.watch<CartCubit>().totalPrice.toStringAsFixed(2)}",
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            showHintDialog(
+                              context,
+                              title: "Checkout",
+                              content:
+                                  "Are you sure you want to checkout? This will clear the cart.",
+                              buttonText: "Checkout",
+                              onPressedAction: () {},
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            elevation: 6,
+                            
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                          child: const Text(
+                            "Checkout",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             );
           }
           if (state is CartCubitInitial) {
@@ -70,4 +129,3 @@ class CartPage extends StatelessWidget {
     );
   }
 }
-

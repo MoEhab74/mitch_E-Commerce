@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:minimal_e_commerce/components/my_list_tile.dart';
+import 'package:minimal_e_commerce/pages/cart_page.dart';
 import 'package:minimal_e_commerce/pages/profile_page.dart';
 import 'package:minimal_e_commerce/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,18 @@ class DrawerBody extends StatelessWidget {
             // Navigate to the profile page
             Navigator.of(context).pushNamed(ProfilePage.routeName);
           },
-        ),        
+        ),  
+        // Cart Page
+        MyListTile(
+          icon: Icons.shopping_cart,
+          title: 'Cart',
+          onTap: () {
+            // Close the drawer
+            Navigator.of(context).pop();
+            // Navigate to the cart page
+            Navigator.of(context).pushNamed(CartPage.routeName);
+          },
+        ),
       ],
     );
     // Change theme button
