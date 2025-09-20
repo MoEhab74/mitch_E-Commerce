@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minimal_e_commerce/components/products_builder.dart';
 import 'package:minimal_e_commerce/cubits/cart/cart_cubit.dart';
 import 'package:minimal_e_commerce/cubits/cart/cart_state.dart';
+import 'package:minimal_e_commerce/cubits/favorites/favorites_cubit.dart';
+import 'package:minimal_e_commerce/cubits/favorites/favorites_states.dart' as fav;
 import 'package:minimal_e_commerce/helper/empty_state_message.dart';
 import 'package:minimal_e_commerce/helper/show_hint_dialog.dart';
 
@@ -43,10 +45,30 @@ class CartPage extends StatelessWidget {
           ),
         ],
       ),
-      body: BlocBuilder<CartCubit, CartState>(
-        builder: (context, state) {
-          // final cartCubit = context.read<CartCubit>();  ===> // Solution without Extension on CartState
-          if (state is CartUpdatedSuccessfully) {
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<FavoritesCubit, fav.FavoritesStates>(
+            listener: (context, state) {
+              if (state is fav.FavoritesUpdatedSuccessfully) {
+                // Sync cart products with favorites when favorites change
+                final cartCubit = context.read<CartCubit>();
+                final favoritesCubit = context.read<FavoritesCubit>();
+                
+                // Update favorite status for all cart items
+                for (var cartProduct in cartCubit.cartItems) {
+                  favoritesCubit.syncProductFavoriteStatus(cartProduct);
+                }
+                
+                // Trigger a rebuild by emitting the same state
+                cartCubit.refreshCartState();
+              }
+            },
+          ),
+        ],
+        child: BlocBuilder<CartCubit, CartState>(
+          builder: (context, state) {
+            // final cartCubit = context.read<CartCubit>();  ===> // Solution without Extension on CartState
+            if (state is CartUpdatedSuccessfully) {
             final products = context.read<CartCubit>().cartItems;
             if (products.isEmpty) {
               return const EmptyStateMessage(
@@ -125,6 +147,7 @@ class CartPage extends StatelessWidget {
           }
           return const Center(child: CircularProgressIndicator());
         },
+        ),
       ),
     );
   }

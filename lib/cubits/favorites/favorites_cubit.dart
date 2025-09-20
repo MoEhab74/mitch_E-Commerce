@@ -13,10 +13,16 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   }
 
   final favoriteItemsBox = Hive.box<ProductModel>('favoriteItems');
+  
   void _loadFavorites() {
     _favorites.clear();
     _favorites.addAll(favoriteItemsBox.values);
     emit(FavoritesUpdatedSuccessfully(List.unmodifiable(_favorites)));
+  }
+
+  // Force reload favorites from Hive (useful when app starts)
+  void reloadFavorites() {
+    _loadFavorites();
   }
 
   // Favorites list
@@ -37,5 +43,15 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
       log('${product.title} added to favorites and stored in Hive');
     }
     emit(FavoritesUpdatedSuccessfully(favorites));
+  }
+
+  // Check if product is in favorites (for syncing with shop)
+  bool isProductFavorite(String productId) {
+    return favoriteItemsBox.containsKey(productId);
+  }
+
+  // Method to sync a product's favorite status
+  void syncProductFavoriteStatus(ProductModel product) {
+    product.isFavorite = isProductFavorite(product.id);
   }
 }

@@ -1,10 +1,12 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:minimal_e_commerce/cubits/auth/auth_states.dart';
 import 'package:minimal_e_commerce/helper/api.dart';
 import 'package:minimal_e_commerce/models/user_model.dart';
+import 'package:minimal_e_commerce/pages/user_auth_state_page.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
@@ -44,10 +46,15 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   // logout user method
-  Future<void> logoutUser() async {
+  Future<void> logoutUser(BuildContext context) async {
     var box = Hive.box('auth');
     await box.clear();
     log('User logged out successfully');
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const UserAuthStatePage()),
+      (route) => false,
+    );
     emit(AuthInitial());
   }
 

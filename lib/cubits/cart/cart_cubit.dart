@@ -88,6 +88,11 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
+  // Method to refresh cart state (useful when favorites change)
+  void refreshCartState() {
+    emit(CartUpdatedSuccessfully(List.unmodifiable(_cartItems)));
+  }
+
   // open favorites box
   
   

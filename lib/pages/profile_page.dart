@@ -76,7 +76,7 @@ class ProfilePage extends StatelessWidget {
                     buttonText: 'log out',
                     onPressedAction: () {
                       // Trigger the logout from the AuthCubit
-                      context.read<AuthCubit>().logoutUser();
+                      context.read<AuthCubit>().logoutUser(context);
                     },
                   );
                 },

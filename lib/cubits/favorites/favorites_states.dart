@@ -9,6 +9,10 @@ final class FavoritesInitial extends FavoritesStates {
     FavoritesInitial() : super(products: []);
 }
 
+final class FavoritesLoading extends FavoritesStates {
+    FavoritesLoading() : super(products: []);
+}
+
 final class FavoritesUpdatedSuccessfully extends FavoritesStates {
     FavoritesUpdatedSuccessfully(List<ProductModel> products) : super(products: products);
 }

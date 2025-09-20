@@ -98,11 +98,37 @@ class ShopCubit extends Cubit<ShopState> {
           .map((product) => ProductModel.fromJson(product))
           .toList();
 
+      // Link the filtered products to Favorites products to show the correct favorite icon state
+      final favoriteBox = Hive.box<ProductModel>('favoriteItems');
+      for (var product in _filteredProducts) {
+        if (favoriteBox.containsKey(product.id)) {
+          product.isFavorite = true;
+        }
+      }
+
       lastQuery = null;
       emit(ShopSuccess(_filteredProducts));
       log('Shop data fetched from the API successfully');
     } catch (e) {
       emit(ShopError(e.toString()));
+    }
+  }
+
+  // Method to sync all shop products with favorites (call this when favorites change)
+  void syncWithFavorites() {
+    final favoriteBox = Hive.box<ProductModel>('favoriteItems');
+    for (var product in _shopProducts) {
+      product.isFavorite = favoriteBox.containsKey(product.id);
+    }
+    for (var product in _filteredProducts) {
+      product.isFavorite = favoriteBox.containsKey(product.id);
+    }
+    
+    // Re-emit the current state to trigger UI update
+    if (_filteredProducts.isNotEmpty) {
+      emit(ShopSuccess(_filteredProducts));
+    } else if (_shopProducts.isNotEmpty) {
+      emit(ShopSuccess(_shopProducts));
     }
   }
 }
