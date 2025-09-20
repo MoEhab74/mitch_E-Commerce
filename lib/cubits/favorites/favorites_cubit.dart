@@ -32,12 +32,10 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   // Add to favorites
   void toggleFavorite(ProductModel product) {
     if (_favorites.any((p) => p.id == product.id)) {
-      product.isFavorite = false;
       _favorites.removeWhere((p) => p.id == product.id);
       favoriteItemsBox.delete(product.id);
       log('${product.title} removed from favorites and deleted from Hive');
     } else {
-      product.isFavorite = true;
       _favorites.add(product);
       favoriteItemsBox.put(product.id, product);
       log('${product.title} added to favorites and stored in Hive');

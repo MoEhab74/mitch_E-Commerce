@@ -50,16 +50,9 @@ class CartPage extends StatelessWidget {
           BlocListener<FavoritesCubit, fav.FavoritesStates>(
             listener: (context, state) {
               if (state is fav.FavoritesUpdatedSuccessfully) {
-                // Sync cart products with favorites when favorites change
+                // Just trigger a rebuild to update the UI
+                // Each product will check its own favorite status
                 final cartCubit = context.read<CartCubit>();
-                final favoritesCubit = context.read<FavoritesCubit>();
-                
-                // Update favorite status for all cart items
-                for (var cartProduct in cartCubit.cartItems) {
-                  favoritesCubit.syncProductFavoriteStatus(cartProduct);
-                }
-                
-                // Trigger a rebuild by emitting the same state
                 cartCubit.refreshCartState();
               }
             },
