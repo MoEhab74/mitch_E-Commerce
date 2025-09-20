@@ -47,9 +47,4 @@ class FavoritesCubit extends Cubit<FavoritesStates> {
   bool isProductFavorite(String productId) {
     return favoriteItemsBox.containsKey(productId);
   }
-
-  // Method to sync a product's favorite status
-  void syncProductFavoriteStatus(ProductModel product) {
-    product.isFavorite = isProductFavorite(product.id);
-  }
 }

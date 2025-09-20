@@ -41,17 +41,6 @@ class DrawerBody extends StatelessWidget {
             Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
           },
         ),
-        // profile
-        MyListTile(
-          icon: Icons.person,
-          title: 'Profile',
-          onTap: () {
-            // Close the drawer
-            Navigator.of(context).pop();
-            // Navigate to the profile page
-            Navigator.of(context).pushNamed(ProfilePage.routeName);
-          },
-        ),  
         // Cart Page
         MyListTile(
           icon: Icons.shopping_cart,
@@ -61,6 +50,17 @@ class DrawerBody extends StatelessWidget {
             Navigator.of(context).pop();
             // Navigate to the cart page
             Navigator.of(context).pushNamed(CartPage.routeName);
+          },
+        ),
+        // profile
+        MyListTile(
+          icon: Icons.person,
+          title: 'Profile',
+          onTap: () {
+            // Close the drawer
+            Navigator.of(context).pop();
+            // Navigate to the profile page
+            Navigator.of(context).pushNamed(ProfilePage.routeName);
           },
         ),
       ],
